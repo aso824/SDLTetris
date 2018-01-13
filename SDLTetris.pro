@@ -19,4 +19,5 @@ HEADERS += \
     include/Config/config.h \
     include/Config/readexception.h \
     include/Logger/logger.h \
-    include/Logger/loglevel.h
+    include/Logger/loglevel.h \
+    include/globals.h

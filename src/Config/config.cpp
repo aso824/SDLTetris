@@ -17,7 +17,7 @@ Config::Config&Config::Config::getInstance()
     return instance;
 }
 
-bool Config::Config::load(std::string path)
+bool Config::Config::load()
 {
     // Open input file
     this->file.open(path);
@@ -53,7 +53,7 @@ bool Config::Config::isLoaded()
 
 void Config::Config::save()
 {
-    this->load(this->path);
+    this->load();
 }
 
 void Config::Config::createNew()
@@ -67,7 +67,12 @@ void Config::Config::createNew()
     newfile.close();
 
     // Load again
-    this->load(this->path);
+    this->load();
+}
+
+void Config::Config::setPath(std::string path)
+{
+    this->path = path;
 }
 
 std::string Config::Config::getPath()

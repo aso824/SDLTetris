@@ -19,10 +19,12 @@ namespace Config {
         ~Config();
         static Config& getInstance();
 
-        bool load(std::string path);
+        bool load();
         bool isLoaded();
         void save();
         void createNew();
+
+        void setPath(std::string path);
         std::string getPath();
 
         bool setAutosave(bool autosave = true);

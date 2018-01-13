@@ -1,16 +1,11 @@
 #include "include/utils.h"
 
 /**
- * @brief Init SDL with extensions, create window and renderer
- * @param win Empty pointer for window
- * @param ren Empty pointer for renderer
- * @return True is everything is up
+ * @brief Simple equivalent of PHP's explode() method
+ * @param s String to be exploded
+ * @param delimiter Characted to use for separation
+ * @return Vector of string elements after explode
  */
-bool Utils::initSDL(SDL_Window *win, SDL_Renderer *ren)
-{
-    return true;
-}
-
 std::vector<std::string> Utils::explode(const std::string& s, char delimiter)
 {
     std::vector<std::string> result;
