@@ -35,10 +35,12 @@ namespace Config {
         std::string getString(std::string key, std::string defaultValue = "");
         int getInt(std::string key, int defaultValue);
         float getFloat(std::string key, float defaultValue);
+        bool getBoolean(std::string key, bool defaultValue);
 
         void setString(std::string key, std::string value);
         void setInt(std::string key, int value);
         void setFloat(std::string key, float value);
+        void setBoolean(std::string key, bool value);
 
         std::vector<std::pair<std::string, std::string> > getAll();
         static void logDumpConfig();

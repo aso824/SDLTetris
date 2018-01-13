@@ -218,6 +218,23 @@ float Config::Config::getFloat(std::string key, float defaultValue)
 }
 
 /**
+ * @brief Get boolean from config by key
+ * @param key Name of value to fetch
+ * @param defaultValue Value to be returned by function if key not found
+ * @return Value found or from default parameter
+ */
+bool Config::Config::getBoolean(std::string key, bool defaultValue)
+{
+    std::string val = this->getString(key, std::to_string(defaultValue));
+
+    if (val == "1" || val == "true" || val == "TRUE") {
+        return true;
+    }
+
+    return false;
+}
+
+/**
  * @brief Sets config key and value in config data
  * @param key Name for value to be set
  * @param value Value to be set
@@ -255,6 +272,16 @@ void Config::Config::setInt(std::string key, int value)
 void Config::Config::setFloat(std::string key, float value)
 {
     this->setString(key, std::to_string(value));
+}
+
+/**
+ * @brief Sets config key and value in config data
+ * @param key Name for value to be set
+ * @param value Value to be casted to string and set
+ */
+void Config::Config::setBoolean(std::string key, bool value)
+{
+    this->setInt(key, value);
 }
 
 /**
