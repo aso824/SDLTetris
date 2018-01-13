@@ -3,6 +3,7 @@
 #include <SDL2/SDL_image.h>
 
 #include "include/Config/config.h"
+#include "include/Logger/logger.h"
 #include "include/utils.h"
 
 using namespace std;
@@ -19,8 +20,6 @@ int main()
 
         Config::Config::getInstance().createNew();
     }
-
-    Config::Config::getInstance().createNew();
 
     if (! Utils::initSDL(win, ren)) {
         return 1;
