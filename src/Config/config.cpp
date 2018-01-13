@@ -8,6 +8,7 @@ Config::Config::Config()
 
 Config::Config::~Config()
 {
+    this->file.flush();
     this->file.close();
 }
 
@@ -34,6 +35,9 @@ bool Config::Config::load()
     try {
         // Parse each line of config
         while (std::getline(this->file, line)) {
+            if (line.empty())
+                continue;
+
             std::vector<std::string> iniEntry = Utils::explode(line, '=');
             this->data->insert(std::make_pair(iniEntry.at(0), iniEntry.at(1)));
         }
@@ -53,18 +57,49 @@ bool Config::Config::isLoaded()
 
 void Config::Config::save()
 {
+    // Unload already loaded config
+    if (this->isLoaded()) {
+        this->file.close();
+        this->loaded = false;
+    }
+
+    // Creating new, empty file
+    try {
+        std::ofstream writeStream(this->path, std::ios::out | std::ios::trunc);
+
+        std::map<std::string, std::string>::const_iterator it;
+
+        for (it = this->data->begin(); it != this->data->end(); ++it) {
+            writeStream << it->first
+                       << "="
+                       << it->second
+                       << std::endl;
+        }
+
+        writeStream.close();
+    } catch (...) {
+        throw WriteException();
+    }
+
+    // Load again
     this->load();
 }
 
 void Config::Config::createNew()
 {
     // If config file is already opened, close it
-    if (this->isLoaded())
+    if (this->isLoaded()) {
         this->file.close();
+        this->loaded = false;
+    }
 
     // Creating new, empty file
-    std::ofstream newfile(this->path, std::ios::out);
-    newfile.close();
+    try {
+        std::ofstream newfile(this->path, std::ios::out);
+        newfile.close();
+    } catch (...) {
+        throw WriteException();
+    }
 
     // Load again
     this->load();
@@ -164,7 +199,7 @@ void Config::Config::logDumpConfig()
     std::vector<std::pair<std::string, std::string> > data = Config::Config::getInstance().getAll();
 
     for (size_t i = 0; i < data.size(); i++) {
-        Logger::Logger::debug(data[i].first + "\t" + data[i].second);
+        Logger::Logger::debug(data[i].first + ": " + data[i].second);
     }
 }
 

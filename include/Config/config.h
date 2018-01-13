@@ -11,6 +11,7 @@
 
 #include "include/utils.h"
 #include "include/Config/readexception.h"
+#include "include/Config/writeexception.h"
 #include "include/Logger/logger.h"
 
 namespace Config {
