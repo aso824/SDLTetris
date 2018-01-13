@@ -10,15 +10,23 @@ using namespace std;
 
 int main()
 {
+    Logger::Logger::info("SDLTetris v1.0");
+
     SDL_Window* win = nullptr;
     SDL_Renderer* ren = nullptr;
 
     try {
         Config::Config::getInstance().load("config.ini");
     } catch (Config::ReadException &e) {
-        cout << "Error while loading config! Error message: " << e.what() << endl;
+        Logger::Logger::warn(e.what());
 
-        Config::Config::getInstance().createNew();
+        try {
+            Config::Config::getInstance().createNew();
+            Config::Config::getInstance().load("config.ini");
+        } catch (...) {
+            Logger::Logger::error("Could not create new config file!");
+            return 1;
+        }
     }
 
     if (! Utils::initSDL(win, ren)) {
