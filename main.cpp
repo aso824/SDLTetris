@@ -16,6 +16,7 @@ int main()
     // Set some settings from globals
     Config::Config::getInstance().setPath(Globals::configFilename);
 
+    // Config loading
     try {
         Config::Config::getInstance().load();
     } catch (Config::ReadException &e) {

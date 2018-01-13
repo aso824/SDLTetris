@@ -95,6 +95,12 @@ std::string Config::Config::getString(std::string key, std::string defaultValue)
     std::map<std::string, std::string>::const_iterator it = this->data->find(key);
 
     if (it == this->data->end()) {
+        this->data->insert(std::make_pair(key, defaultValue));
+
+        if (this->autosave) {
+            this->save();
+        }
+
         return defaultValue;
     }
 
@@ -119,5 +125,27 @@ float Config::Config::getFloat(std::string key, float defaultValue)
         return defaultValue;
 
     return atof(val.c_str());
+}
+
+std::vector<std::pair<std::string, std::string> > Config::Config::getAll()
+{
+    std::vector<std::pair<std::string, std::string> > result;
+
+    for (auto it = this->data->begin(); it != this->data->end(); ++it) {
+        result.push_back(*it);
+    }
+
+    return result;
+}
+
+void Config::Config::logDumpConfig()
+{
+    Logger::Logger::debug("Dumping all config keys and values:");
+
+    std::vector<std::pair<std::string, std::string> > data = Config::Config::getInstance().getAll();
+
+    for (size_t i = 0; i < data.size(); i++) {
+        Logger::Logger::debug(data[i].first + "\t" + data[i].second);
+    }
 }
 
