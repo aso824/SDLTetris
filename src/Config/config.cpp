@@ -109,22 +109,41 @@ std::string Config::Config::getString(std::string key, std::string defaultValue)
 
 int Config::Config::getInt(std::string key, int defaultValue)
 {
-    std::string val = this->getString(key);
-
-    if (val.empty())
-        return defaultValue;
+    std::string val = this->getString(key, std::to_string(defaultValue));
 
     return atoi(val.c_str());
 }
 
 float Config::Config::getFloat(std::string key, float defaultValue)
 {
-    std::string val = this->getString(key);
-
-    if (val.empty())
-        return defaultValue;
+    std::string val = this->getString(key, std::to_string(defaultValue));
 
     return atof(val.c_str());
+}
+
+void Config::Config::setString(std::string key, std::string value)
+{
+    std::map<std::string, std::string>::iterator it = this->data->find(key);
+
+    if (it == this->data->end()) {
+        this->data->insert(std::make_pair(key, value));
+    } else {
+        it->second = value;
+    }
+
+    if (this->autosave) {
+        this->save();
+    }
+}
+
+void Config::Config::setInt(std::string key, int value)
+{
+    this->setString(key, std::to_string(value));
+}
+
+void Config::Config::setFloat(std::string key, float value)
+{
+    this->setString(key, std::to_string(value));
 }
 
 std::vector<std::pair<std::string, std::string> > Config::Config::getAll()
