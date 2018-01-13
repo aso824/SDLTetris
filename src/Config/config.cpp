@@ -1,23 +1,38 @@
 #include "include/Config/config.h"
 
+/**
+ * @brief Ctor
+ */
 Config::Config::Config()
 {
     std::unique_ptr<std::map<std::string, std::string>> data(new std::map<std::string, std::string>);
     this->data = std::move(data);
 }
 
+/**
+ * @brief Dtor
+ */
 Config::Config::~Config()
 {
     this->file.flush();
     this->file.close();
 }
 
+/**
+ * @brief Main method for singleton
+ * @return Static Config instance
+ */
 Config::Config&Config::Config::getInstance()
 {
     static Config instance;
     return instance;
 }
 
+/**
+ * @brief Perform config file loading and parsing
+ * @return true if config get loaded
+ * @throws ReadException when file could not be opened or content is invalid
+ */
 bool Config::Config::load()
 {
     // Open input file
@@ -50,11 +65,19 @@ bool Config::Config::load()
     return true;
 }
 
+/**
+ * @brief Tells if config file is already loaded, based on internal boolean
+ * @return Config file load status
+ */
 bool Config::Config::isLoaded()
 {
     return this->loaded;
 }
 
+/**
+ * @brief Saves config data into file
+ * @throws WriteException when any write error occured
+ */
 void Config::Config::save()
 {
     // Unload already loaded config
@@ -85,6 +108,10 @@ void Config::Config::save()
     this->load();
 }
 
+/**
+ * @brief Creates new config file or resets already existing/loaded config file
+ * @throws WriteException when any write error occured
+ */
 void Config::Config::createNew()
 {
     // If config file is already opened, close it
@@ -105,26 +132,48 @@ void Config::Config::createNew()
     this->load();
 }
 
+/**
+ * @brief Set filename or path of config file, relative to executable directory
+ * @param File path / name to be set
+ */
 void Config::Config::setPath(std::string path)
 {
     this->path = path;
 }
 
+/**
+ * @brief Get currently set config filepath
+ * @return Config file path
+ */
 std::string Config::Config::getPath()
 {
     return this->path;
 }
 
+/**
+ * @brief Set status of autosave function
+ * @param autosave Autosave function status
+ */
 void Config::Config::setAutosave(bool autosave)
 {
     this->autosave = autosave;
 }
 
+/**
+ * @brief Gets status of autosave function
+ * @return Autosave function status
+ */
 bool Config::Config::getAutosaveSetting()
 {
     return this->autosave;
 }
 
+/**
+ * @brief Get string from config by key
+ * @param key Name of value to fetch
+ * @param defaultValue Value to be returned by function if key not found
+ * @return Value found or from default parameter
+ */
 std::string Config::Config::getString(std::string key, std::string defaultValue)
 {
     std::map<std::string, std::string>::const_iterator it = this->data->find(key);
@@ -142,6 +191,12 @@ std::string Config::Config::getString(std::string key, std::string defaultValue)
     return it->second;
 }
 
+/**
+ * @brief Get int from config by key
+ * @param key Name of value to fetch
+ * @param defaultValue Value to be returned by function if key not found
+ * @return Value found or from default parameter
+ */
 int Config::Config::getInt(std::string key, int defaultValue)
 {
     std::string val = this->getString(key, std::to_string(defaultValue));
@@ -149,6 +204,12 @@ int Config::Config::getInt(std::string key, int defaultValue)
     return atoi(val.c_str());
 }
 
+/**
+ * @brief Get float from config by key
+ * @param key Name of value to fetch
+ * @param defaultValue Value to be returned by function if key not found
+ * @return Value found or from default parameter
+ */
 float Config::Config::getFloat(std::string key, float defaultValue)
 {
     std::string val = this->getString(key, std::to_string(defaultValue));
@@ -156,6 +217,11 @@ float Config::Config::getFloat(std::string key, float defaultValue)
     return atof(val.c_str());
 }
 
+/**
+ * @brief Sets config key and value in config data
+ * @param key Name for value to be set
+ * @param value Value to be set
+ */
 void Config::Config::setString(std::string key, std::string value)
 {
     std::map<std::string, std::string>::iterator it = this->data->find(key);
@@ -171,16 +237,30 @@ void Config::Config::setString(std::string key, std::string value)
     }
 }
 
+/**
+ * @brief Sets config key and value in config data
+ * @param key Name for value to be set
+ * @param value Value to be casted to string and set
+ */
 void Config::Config::setInt(std::string key, int value)
 {
     this->setString(key, std::to_string(value));
 }
 
+/**
+ * @brief Sets config key and value in config data
+ * @param key Name for value to be set
+ * @param value Value to be casted to string and set
+ */
 void Config::Config::setFloat(std::string key, float value)
 {
     this->setString(key, std::to_string(value));
 }
 
+/**
+ * @brief Get all config keys and values in vector
+ * @return Vector of pairs with keys and values, sorted alphabetically by key
+ */
 std::vector<std::pair<std::string, std::string> > Config::Config::getAll()
 {
     std::vector<std::pair<std::string, std::string> > result;
@@ -192,6 +272,9 @@ std::vector<std::pair<std::string, std::string> > Config::Config::getAll()
     return result;
 }
 
+/**
+ * @brief Dumps all keys and values into console with DEBUG level
+ */
 void Config::Config::logDumpConfig()
 {
     Logger::Logger::debug("Dumping all config keys and values:");
