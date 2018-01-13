@@ -15,6 +15,12 @@ namespace Gfx {
             ~Engine();
             void restart();
 
+            inline SDL_Window* getWindow() { return this->win; }
+            inline SDL_Renderer* getRenderer() { return this->ren; }
+
+            void clearScreen();
+            void refresh();
+
         protected:
             SDL_Window* win;
             SDL_Renderer* ren;

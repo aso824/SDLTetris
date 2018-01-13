@@ -10,7 +10,8 @@ SOURCES += main.cpp \
     src/Logger/logger.cpp \
     src/Config/writeexception.cpp \
     src/Gfx/engine.cpp \
-    src/Gfx/Exceptions/sdlexception.cpp
+    src/Gfx/Exceptions/sdlexception.cpp \
+    src/Tetris/game.cpp
 
 CONFIG += c++11
 
@@ -27,4 +28,5 @@ HEADERS += \
     include/Config/writeexception.h \
     include/Gfx/engine.h \
     include/defaults.h \
-    include/Gfx/Exceptions/sdlexception.h
+    include/Gfx/Exceptions/sdlexception.h \
+    include/Tetris/game.h

@@ -26,6 +26,23 @@ void Gfx::Engine::restart()
 }
 
 /**
+ * @brief Clear screen with black color
+ */
+void Gfx::Engine::clearScreen()
+{
+    SDL_SetRenderDrawColor(this->ren, 0, 0, 0, 0);
+    SDL_RenderClear(this->ren);
+}
+
+/**
+ * @brief Calls SDL_RenderPresent
+ */
+void Gfx::Engine::refresh()
+{
+    SDL_RenderPresent(this->ren);
+}
+
+/**
  * @brief Initialize SDL and subsystems, create objects like window and renderer
  */
 void Gfx::Engine::initAll()

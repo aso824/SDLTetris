@@ -1,10 +1,11 @@
 #include <iostream>
 #include <memory>
 
+#include "include/globals.h"
 #include "include/Config/config.h"
 #include "include/Logger/logger.h"
 #include "include/Gfx/engine.h"
-#include "include/globals.h"
+#include "include/Tetris/game.h"
 
 using namespace std;
 
@@ -31,12 +32,27 @@ int main()
     }
 
     // Graphics engine initialization
-    unique_ptr<Gfx::Engine> engine;
+    shared_ptr<Gfx::Engine> engine;
 
     try {
-        engine = unique_ptr<Gfx::Engine>(new Gfx::Engine());
+        engine = shared_ptr<Gfx::Engine>(new Gfx::Engine());
     } catch (Gfx::Exceptions::SDLException &e) {
         Logger::Logger::error(e.what());
+
+        return EXIT_FAILURE;
+    }
+
+    // Tetris game main object
+    unique_ptr<Tetris::Game> game;
+
+    try {
+        game = unique_ptr<Tetris::Game>(new Tetris::Game());
+
+        game->setGraphicsEngine(engine);
+
+        game->start();
+    } catch (...) {
+        Logger::Logger::error("Unhandled Tetris::Game exception in main()");
 
         return EXIT_FAILURE;
     }
