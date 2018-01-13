@@ -1,10 +1,9 @@
 #include <iostream>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
+#include <memory>
 
 #include "include/Config/config.h"
 #include "include/Logger/logger.h"
-#include "include/utils.h"
+#include "include/Gfx/engine.h"
 #include "include/globals.h"
 
 using namespace std;
@@ -29,6 +28,17 @@ int main()
 
             return EXIT_FAILURE;
         }
+    }
+
+    // Graphics engine initialization
+    unique_ptr<Gfx::Engine> engine;
+
+    try {
+        engine = unique_ptr<Gfx::Engine>(new Gfx::Engine());
+    } catch (Gfx::Exceptions::SDLException &e) {
+        Logger::Logger::error(e.what());
+
+        return EXIT_FAILURE;
     }
 
     return EXIT_SUCCESS;

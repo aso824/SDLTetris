@@ -8,7 +8,9 @@ SOURCES += main.cpp \
     src/Config/config.cpp \
     src/Config/readexception.cpp \
     src/Logger/logger.cpp \
-    src/Config/writeexception.cpp
+    src/Config/writeexception.cpp \
+    src/Gfx/engine.cpp \
+    src/Gfx/Exceptions/sdlexception.cpp
 
 CONFIG += c++11
 
@@ -22,4 +24,7 @@ HEADERS += \
     include/Logger/logger.h \
     include/Logger/loglevel.h \
     include/globals.h \
-    include/Config/writeexception.h
+    include/Config/writeexception.h \
+    include/Gfx/engine.h \
+    include/defaults.h \
+    include/Gfx/Exceptions/sdlexception.h
