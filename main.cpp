@@ -24,7 +24,6 @@ int main()
 
         try {
             Config::Config::getInstance().createNew();
-            Config::Config::getInstance().load();
         } catch (...) {
             Logger::Logger::error("Could not create new config file!");
 
