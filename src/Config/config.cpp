@@ -80,7 +80,7 @@ std::string Config::Config::getPath()
     return this->path;
 }
 
-bool Config::Config::setAutosave(bool autosave)
+void Config::Config::setAutosave(bool autosave)
 {
     this->autosave = autosave;
 }
@@ -88,5 +88,36 @@ bool Config::Config::setAutosave(bool autosave)
 bool Config::Config::getAutosaveSetting()
 {
     return this->autosave;
+}
+
+std::string Config::Config::getString(std::string key, std::string defaultValue)
+{
+    std::map<std::string, std::string>::const_iterator it = this->data->find(key);
+
+    if (it == this->data->end()) {
+        return defaultValue;
+    }
+
+    return it->second;
+}
+
+int Config::Config::getInt(std::string key, int defaultValue)
+{
+    std::string val = this->getString(key);
+
+    if (val.empty())
+        return defaultValue;
+
+    return atoi(val.c_str());
+}
+
+float Config::Config::getFloat(std::string key, float defaultValue)
+{
+    std::string val = this->getString(key);
+
+    if (val.empty())
+        return defaultValue;
+
+    return atof(val.c_str());
 }
 

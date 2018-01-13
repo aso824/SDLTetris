@@ -27,12 +27,12 @@ namespace Config {
         void setPath(std::string path);
         std::string getPath();
 
-        bool setAutosave(bool autosave = true);
+        void setAutosave(bool autosave = true);
         bool getAutosaveSetting();
 
-        std::string getString(std::string key);
-        int getInt(std::string key);
-        float getFloat(std::string key);
+        std::string getString(std::string key, std::string defaultValue = "");
+        int getInt(std::string key, int defaultValue);
+        float getFloat(std::string key, float defaultValue);
 
         void setString(std::string key, std::string value);
         void setInt(std::string key, int value);
