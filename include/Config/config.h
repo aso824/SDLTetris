@@ -21,11 +21,12 @@ namespace Config {
 
         bool load(std::string path);
         bool isLoaded();
-        bool save(std::string path = "");
+        void save();
+        void createNew();
         std::string getPath();
 
         bool setAutosave(bool autosave = true);
-        bool getAutosaveStatus();
+        bool getAutosaveSetting();
 
         std::string getString(std::string key);
         int getInt(std::string key);

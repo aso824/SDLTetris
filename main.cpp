@@ -15,8 +15,12 @@ int main()
     try {
         Config::Config::getInstance().load("config.ini");
     } catch (Config::ReadException &e) {
-        cout << "Can't load config!" << endl;
+        cout << "Error while loading config! Error message: " << e.what() << endl;
+
+        Config::Config::getInstance().createNew();
     }
+
+    Config::Config::getInstance().createNew();
 
     if (! Utils::initSDL(win, ren)) {
         return 1;
