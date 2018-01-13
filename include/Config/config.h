@@ -6,15 +6,18 @@
 #include <string>
 #include <map>
 #include <memory>
+#include <sstream>
+#include <vector>
 
+#include "include/utils.h"
 #include "include/Config/readexception.h"
 
 namespace Config {
     class Config
     {
     public:
-        Config(std::string path = "");
         ~Config();
+        static Config& getInstance();
 
         bool load(std::string path);
         bool isLoaded();
@@ -38,7 +41,9 @@ namespace Config {
         bool autosave = false;
 
         std::unique_ptr<std::map<std::string, std::string>> data;
-        std::unique_ptr<std::fstream> file;
+        std::fstream file;
+
+        Config();
     };
 }
 
