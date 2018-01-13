@@ -160,9 +160,9 @@ void Logger::Logger::writeTag(LogLevel level, bool colors)
         case WARN: std::cout << "warn"; break;
         case INFO: std::cout << "info"; break;
         case OK: std::cout << " ok "; break;
-        case TEXT: std::cout << "       "; break;
+        case TEXT: std::cout << "        "; break;
         case DEBUG: std::cout << "debug"; break;
-        default: std::cout << "       "; break;
+        default: std::cout << "        "; break;
     }
 
     if (colors)

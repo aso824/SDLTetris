@@ -11,6 +11,8 @@
 
 #include "include/utils.h"
 #include "include/Config/readexception.h"
+#include "include/Config/writeexception.h"
+#include "include/Logger/logger.h"
 
 namespace Config {
     class Config
@@ -27,16 +29,19 @@ namespace Config {
         void setPath(std::string path);
         std::string getPath();
 
-        bool setAutosave(bool autosave = true);
+        void setAutosave(bool autosave = true);
         bool getAutosaveSetting();
 
-        std::string getString(std::string key);
-        int getInt(std::string key);
-        float getFloat(std::string key);
+        std::string getString(std::string key, std::string defaultValue = "");
+        int getInt(std::string key, int defaultValue);
+        float getFloat(std::string key, float defaultValue);
 
         void setString(std::string key, std::string value);
         void setInt(std::string key, int value);
         void setFloat(std::string key, float value);
+
+        std::vector<std::pair<std::string, std::string> > getAll();
+        static void logDumpConfig();
 
     protected:
         std::string path;
