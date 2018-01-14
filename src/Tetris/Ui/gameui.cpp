@@ -18,6 +18,15 @@ Tetris::Ui::GameUi::~GameUi()
 }
 
 /**
+ * @brief Get area for rendering tiles
+ * @return Rect with dimensions
+ */
+SDL_Rect Tetris::Ui::GameUi::getTilesArea()
+{
+    return this->calcTilesArea();
+}
+
+/**
  * @brief Draws main game UI like box for tiles and all other things
  */
 void Tetris::Ui::GameUi::draw()

@@ -60,5 +60,7 @@ int main()
         return EXIT_FAILURE;
     }
 
+    Logger::Logger::info("Game was closed successfully.");
+
     return EXIT_SUCCESS;
 }
