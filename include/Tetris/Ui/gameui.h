@@ -16,11 +16,19 @@ namespace Tetris {
 
             protected:
                 std::shared_ptr<Gfx::Engine> engine;
+
                 SDL_Rect area;
-                SDL_Rect tilesArea;
-                SDL_Rect sidebarArea;
 
                 const int padding = 25;
+                const int shading = 64;
+
+                void drawShadedBoxFrame(SDL_Rect rect);
+
+                SDL_Rect calcTilesArea();
+                SDL_Rect calcSidebarArea();
+                SDL_Rect calcNextTileArea();
+
+                void clearTilesArea();
         };
     }
 }
