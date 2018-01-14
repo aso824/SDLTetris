@@ -161,7 +161,7 @@ void Gfx::Engine::initAll()
     this->fontmgr = std::make_shared<FontManager>();
 
     // Create assets manager and load files
-    this->assets = std::make_shared<AssetsManager>(this->fontmgr, "assets");
+    this->assets = std::make_shared<AssetsManager>(this->ren, this->fontmgr, "assets");
     this->assets->load();
 }
 
