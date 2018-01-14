@@ -15,6 +15,10 @@ namespace Tetris {
             protected:
                 std::shared_ptr<Gfx::Engine> engine;
                 SDL_Rect area;
+                SDL_Rect tilesArea;
+                SDL_Rect nextTileArea;
+
+                const int padding = 25;
         };
     }
 }

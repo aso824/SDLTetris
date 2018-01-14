@@ -1,6 +1,14 @@
 #include "include/Tetris/game.h"
 
 /**
+ * @brief Dtor
+ */
+Tetris::Game::~Game()
+{
+
+}
+
+/**
  * @brief Setter for Gfx::Engine
  * @param engine Shared pointer for Gfx::Engine instance
  */

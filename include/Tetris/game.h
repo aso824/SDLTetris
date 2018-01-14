@@ -10,6 +10,8 @@ namespace Tetris {
     class Game
     {
         public:
+            ~Game();
+
             void setGraphicsEngine(std::shared_ptr<Gfx::Engine> engine);
             void start();
 
