@@ -23,6 +23,8 @@ void Tetris::Game::setGraphicsEngine(std::shared_ptr<Gfx::Engine> engine)
  */
 void Tetris::Game::start()
 {
+    Logger::Logger::ok("Game started.");
+
     this->engine->clearScreen();
 
     SDL_Event e;

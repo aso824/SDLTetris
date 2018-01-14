@@ -11,7 +11,7 @@ Gfx::TextWriter::TextWriter(const std::shared_ptr<Engine>& engine)
 }
 
 /**
- * @brief Write text on screen, using given font, on given point, with scaled width
+ * @brief Write text on screen, using given font, on given point, with downscaled width
  * @param s String to be written
  * @param f Gfx::Font with TTF_Font* loaded
  * @param pos Text position, point is on upper-left corner
@@ -24,7 +24,15 @@ void Gfx::TextWriter::writeText(std::string s, Gfx::Font f, SDL_Point pos, SDL_C
     SDL_Texture *tex = SDL_CreateTextureFromSurface(this->engine->getRenderer(), surf);
     SDL_FreeSurface(surf);
 
-    SDL_Rect r = {pos.x, pos.y, width, 0};
+    SDL_Rect r = {pos.x, pos.y, 0, 0};
+
+    // Only downscalling
+    int w = 0;
+    SDL_QueryTexture(tex, NULL, NULL, &w, NULL);
+
+    if (w > width) {
+        r.w = width;
+    }
 
     this->engine->renderTexture(tex, r);
     SDL_DestroyTexture(tex);

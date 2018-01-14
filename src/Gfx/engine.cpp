@@ -97,8 +97,6 @@ void Gfx::Engine::renderTexture(SDL_Texture* tex, SDL_Rect pos)
         }
     }
 
-    Logger::Logger::debug(std::to_string(h));
-
     SDL_RenderCopy(this->ren, tex, NULL, &pos);
 }
 
