@@ -15,7 +15,10 @@ SOURCES += main.cpp \
     src/Tetris/Ui/gameui.cpp \
     src/Gfx/fontmanager.cpp \
     src/Gfx/Exceptions/unknownfontexception.cpp \
-    src/Gfx/textwriter.cpp
+    src/Gfx/textwriter.cpp \
+    src/Tetris/tile.cpp \
+    src/Tetris/map.cpp \
+    src/Tetris/maprenderer.cpp
 
 CONFIG += c++11
 
@@ -39,4 +42,8 @@ HEADERS += \
     include/Gfx/fontmanager.h \
     include/Gfx/font.h \
     include/Gfx/Exceptions/unknownfontexception.h \
-    include/Gfx/textwriter.h
+    include/Gfx/textwriter.h \
+    include/Tetris/tile.h \
+    include/Tetris/enums.h \
+    include/Tetris/map.h \
+    include/Tetris/maprenderer.h

@@ -1,6 +1,14 @@
 #include "include/Tetris/game.h"
 
 /**
+ * @brief Ctor
+ */
+Tetris::Game::Game()
+{
+    this->map = std::make_shared<Map>();
+}
+
+/**
  * @brief Dtor
  */
 Tetris::Game::~Game()
@@ -16,6 +24,7 @@ void Tetris::Game::setGraphicsEngine(std::shared_ptr<Gfx::Engine> engine)
 {
     this->engine = engine;
     this->ui = std::unique_ptr<Ui::GameUi>(new Ui::GameUi(this->engine, this->getMainGameRect()));
+    this->mapRen = std::make_shared<MapRenderer>(this->engine, this->map, this->ui->getTilesArea());
 }
 
 /**
@@ -26,6 +35,7 @@ void Tetris::Game::start()
     Logger::Logger::ok("Game started.");
 
     this->engine->clearScreen();
+    this->ui->draw();
 
     SDL_Event e;
     bool run = true;
@@ -37,7 +47,7 @@ void Tetris::Game::start()
             }
         }
 
-        this->ui->draw();
+        this->mapRen->render();
         this->engine->refresh();
     }
 }

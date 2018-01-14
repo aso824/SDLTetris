@@ -15,6 +15,7 @@ namespace Tetris {
                 GameUi(std::shared_ptr<Gfx::Engine> engine, SDL_Rect area);
                 ~GameUi();
 
+                SDL_Rect getTilesArea();
                 void draw();
 
             protected:

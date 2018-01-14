@@ -18,6 +18,15 @@ Tetris::Ui::GameUi::~GameUi()
 }
 
 /**
+ * @brief Get area for rendering tiles
+ * @return Rect with dimensions
+ */
+SDL_Rect Tetris::Ui::GameUi::getTilesArea()
+{
+    return this->calcTilesArea();
+}
+
+/**
  * @brief Draws main game UI like box for tiles and all other things
  */
 void Tetris::Ui::GameUi::draw()
@@ -69,11 +78,11 @@ void Tetris::Ui::GameUi::drawShadedBoxFrame(SDL_Rect rect)
 SDL_Rect Tetris::Ui::GameUi::calcTilesArea()
 {
     return {
-        area.x + this->padding,
-        area.y + this->padding,
-        (area.w - 2 * this->padding) / 3 * 2,
-        area.h - 2 * this->padding
-    };
+            area.x + this->padding,
+            area.y + this->padding,
+            (int)((area.h - 2 * this->padding) * 0.5),
+            area.h - 2 * this->padding
+        };
 }
 
 /**

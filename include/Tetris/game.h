@@ -4,12 +4,16 @@
 #include <memory>
 #include <SDL2/SDL.h>
 #include "include/Gfx/engine.h"
-#include "include/Tetris/Ui/gameui.h"
+#include "Ui/gameui.h"
+#include "tile.h"
+#include "map.h"
+#include "maprenderer.h"
 
 namespace Tetris {
     class Game
     {
         public:
+            Game();
             ~Game();
 
             void setGraphicsEngine(std::shared_ptr<Gfx::Engine> engine);
@@ -18,6 +22,8 @@ namespace Tetris {
         protected:
             std::shared_ptr<Gfx::Engine> engine;
             std::unique_ptr<Ui::GameUi> ui;
+            std::shared_ptr<Map> map;
+            std::shared_ptr<MapRenderer> mapRen;
 
             SDL_Rect getMainGameRect();
     };
