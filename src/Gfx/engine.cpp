@@ -71,6 +71,10 @@ void Gfx::Engine::initAll()
         throw Exceptions::SDLException("initializing SDL");
     }
 
+    if (TTF_Init() != 0) {
+        throw Exceptions::SDLException("initializing TTF");
+    }
+
     // Create window
     this->screenWidth = Config::Config::getInstance().getInt("screen_w", DEFAULT_SCREEN_W);
     this->screenHeight = Config::Config::getInstance().getInt("screen_h", DEFAULT_SCREEN_H);
@@ -100,6 +104,8 @@ void Gfx::Engine::initAll()
         throw Exceptions::SDLException("creating renderer");
     }
 
+    // Create font manager
+    this->fontmgr = std::make_shared<FontManager>();
 }
 
 /**

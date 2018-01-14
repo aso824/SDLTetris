@@ -42,6 +42,9 @@ int main()
         return EXIT_FAILURE;
     }
 
+    // Load UI fonts
+    engine->getFontManager()->addFont("Roboto", "roboto.ttf");
+
     // Tetris game main object
     unique_ptr<Tetris::Game> game;
 

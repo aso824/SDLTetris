@@ -2,6 +2,8 @@
 #define GAMEUI_H
 
 #include <memory>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include "include/Gfx/engine.h"
 
 namespace Tetris {

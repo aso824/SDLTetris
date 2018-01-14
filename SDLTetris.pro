@@ -12,12 +12,15 @@ SOURCES += main.cpp \
     src/Gfx/engine.cpp \
     src/Gfx/Exceptions/sdlexception.cpp \
     src/Tetris/game.cpp \
-    src/Tetris/Ui/gameui.cpp
+    src/Tetris/Ui/gameui.cpp \
+    src/Gfx/fontmanager.cpp \
+    src/Gfx/Exceptions/unknownfontexception.cpp
 
 CONFIG += c++11
 
 LIBS += -lSDL2
 LIBS += -lSDL2_image
+LIBS += -lSDL2_ttf
 
 HEADERS += \
     include/utils.h \
@@ -31,4 +34,7 @@ HEADERS += \
     include/defaults.h \
     include/Gfx/Exceptions/sdlexception.h \
     include/Tetris/game.h \
-    include/Tetris/Ui/gameui.h
+    include/Tetris/Ui/gameui.h \
+    include/Gfx/fontmanager.h \
+    include/Gfx/font.h \
+    include/Gfx/Exceptions/unknownfontexception.h

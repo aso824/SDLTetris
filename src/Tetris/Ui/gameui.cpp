@@ -27,6 +27,20 @@ void Tetris::Ui::GameUi::draw()
     //this->engine->drawRect(this->sidebarArea, &green);
 
     this->drawShadedBoxFrame(this->calcTilesArea());
+
+    try {
+        TTF_Font* font = this->engine->getFontManager()->getFont("Roboto", 14).fontObj;
+        SDL_Surface *surf = TTF_RenderUTF8_Blended(font, "Następny:", {255, 255, 255, 255});
+        SDL_Texture *tex = SDL_CreateTextureFromSurface(this->engine->getRenderer(), surf);
+        SDL_Rect dst = {715, 60, 150, 30};
+        SDL_RenderCopy(this->engine->getRenderer(), tex, NULL, &dst);
+
+        SDL_FreeSurface(surf);
+        SDL_DestroyTexture(tex);
+    } catch (Gfx::Exceptions::UnknownFontException &e) {
+        //Logger::Logger::warn(e.what());
+    }
+
     this->drawShadedBoxFrame(this->calcNextTileArea());
 }
 
