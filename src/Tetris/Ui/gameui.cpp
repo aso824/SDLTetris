@@ -78,11 +78,11 @@ void Tetris::Ui::GameUi::drawShadedBoxFrame(SDL_Rect rect)
 SDL_Rect Tetris::Ui::GameUi::calcTilesArea()
 {
     return {
-        area.x + this->padding,
-        area.y + this->padding,
-        (area.w - 2 * this->padding) / 3 * 2,
-        area.h - 2 * this->padding
-    };
+            area.x + this->padding,
+            area.y + this->padding,
+            (int)((area.h - 2 * this->padding) * 0.5),
+            area.h - 2 * this->padding
+        };
 }
 
 /**
