@@ -1,8 +1,11 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
+#include <memory>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 
+#include "fontmanager.h"
 #include "Exceptions/sdlexception.h"
 #include "include/Config/config.h"
 #include "include/defaults.h"
@@ -17,6 +20,8 @@ namespace Gfx {
 
             inline SDL_Window* getWindow() { return this->win; }
             inline SDL_Renderer* getRenderer() { return this->ren; }
+            inline std::shared_ptr<FontManager> getFontManager() { return this->fontmgr; }
+            //inline std::shared_ptr<TextWriter> getTextWriter() { return this->writer; }
 
             inline unsigned int getScreenWidth() { return this->screenWidth; }
             inline unsigned int getScreenHeight() { return this->screenHeight; }
@@ -25,12 +30,15 @@ namespace Gfx {
             void refresh();
 
             void drawRect(SDL_Rect rect, SDL_Color* color = nullptr, bool filled = false);
+            void renderTexture(SDL_Texture *tex, SDL_Rect pos);
 
         protected:
             SDL_Window* win = nullptr;
             SDL_Renderer* ren = nullptr;
             unsigned int screenWidth;
             unsigned int screenHeight;
+            std::shared_ptr<FontManager> fontmgr;
+            //std::shared_ptr<TextWriter> writer;
 
             void initAll();
             void destroyAll();

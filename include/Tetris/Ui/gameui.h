@@ -2,7 +2,10 @@
 #define GAMEUI_H
 
 #include <memory>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include "include/Gfx/engine.h"
+#include "include/Gfx/textwriter.h"
 
 namespace Tetris {
     namespace Ui {
@@ -16,11 +19,20 @@ namespace Tetris {
 
             protected:
                 std::shared_ptr<Gfx::Engine> engine;
+                std::shared_ptr<Gfx::TextWriter> writer;
+
                 SDL_Rect area;
-                SDL_Rect tilesArea;
-                SDL_Rect sidebarArea;
 
                 const int padding = 25;
+                const int shading = 64;
+
+                void drawShadedBoxFrame(SDL_Rect rect);
+
+                SDL_Rect calcTilesArea();
+                SDL_Rect calcSidebarArea();
+                SDL_Rect calcNextTileArea();
+
+                void clearTilesArea();
         };
     }
 }

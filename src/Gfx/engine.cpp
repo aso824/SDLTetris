@@ -62,6 +62,47 @@ void Gfx::Engine::drawRect(SDL_Rect rect, SDL_Color* color, bool filled)
 }
 
 /**
+ * @brief Render given texture at screen
+ * @param tex Texture to be rendered
+ * @param position Texture position and dimensions, W and H will be filled with aspect ratio
+ */
+void Gfx::Engine::renderTexture(SDL_Texture* tex, SDL_Rect pos)
+{
+    /*SDL_Rect dst = {
+        position.x,
+        position.y,
+        0, 0
+    };
+
+    SDL_QueryTexture(tex, NULL, NULL, &dst.w, &dst.h);*/
+
+    int w = 0, h = 0;
+    SDL_QueryTexture(tex, NULL, NULL, &w, &h);
+
+    // Autoscalling feature
+    if (pos.w == 0 || pos.h == 0) {
+        if (pos.w == 0 && pos.h == 0) {
+            // Both W and H empty, draw in original size
+            pos.w = w;
+            pos.h = h;
+        } else {
+            // Only width or height is empty, need to scale with aspect ratio
+            if (pos.w == 0) {
+                // Calculate width, depends on height
+                pos.w = (int)((float)pos.h / (float)h * (float)w);
+            } else {
+                // Calculate height, depends on width
+                pos.h = (int)((float)pos.w / (float)w * (float)h);
+            }
+        }
+    }
+
+    Logger::Logger::debug(std::to_string(h));
+
+    SDL_RenderCopy(this->ren, tex, NULL, &pos);
+}
+
+/**
  * @brief Initialize SDL and subsystems, create objects like window and renderer
  */
 void Gfx::Engine::initAll()
@@ -69,6 +110,10 @@ void Gfx::Engine::initAll()
     // Init SDL and subsystems
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         throw Exceptions::SDLException("initializing SDL");
+    }
+
+    if (TTF_Init() != 0) {
+        throw Exceptions::SDLException("initializing TTF");
     }
 
     // Create window
@@ -100,6 +145,12 @@ void Gfx::Engine::initAll()
         throw Exceptions::SDLException("creating renderer");
     }
 
+    // Create font manager
+    this->fontmgr = std::make_shared<FontManager>();
+
+    // Create text writer
+    //TextWriter* writer = new TextWriter(this, this->fontmgr);
+    //this->writer = std::make_shared<TextWriter>();
 }
 
 /**
