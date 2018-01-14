@@ -32,6 +32,11 @@ namespace Config {
         void setAutosave(bool autosave = true);
         bool getAutosaveSetting();
 
+        void setExitSave(bool exitSave = true);
+        bool getExitSaveSetting();
+
+        bool hasModified();
+
         std::string getString(std::string key, std::string defaultValue = "");
         int getInt(std::string key, int defaultValue);
         float getFloat(std::string key, float defaultValue);
@@ -49,6 +54,8 @@ namespace Config {
         std::string path;
         bool loaded = false;
         bool autosave = false;
+        bool exitSave = true;
+        bool modified = false;
 
         std::unique_ptr<std::map<std::string, std::string>> data;
         std::fstream file;

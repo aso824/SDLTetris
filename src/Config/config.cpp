@@ -14,6 +14,10 @@ Config::Config::Config()
  */
 Config::Config::~Config()
 {
+    if (this->exitSave && this->modified) {
+        this->save();
+    }
+
     this->file.flush();
     this->file.close();
 }
@@ -169,6 +173,33 @@ bool Config::Config::getAutosaveSetting()
 }
 
 /**
+ * @brief Sets status of exit save function
+ * @param exit Save Exit save function status
+ */
+void Config::Config::setExitSave(bool exitSave)
+{
+    this->exitSave = exitSave;
+}
+
+/**
+ * @brief Gets status of exit save function
+ * @return Exit save function status
+ */
+bool Config::Config::getExitSaveSetting()
+{
+    return this->exitSave;
+}
+
+/**
+ * @brief Tells if config data has been modified by get or set functions
+ * @return True if data has been modified
+ */
+bool Config::Config::hasModified()
+{
+    return this->modified;
+}
+
+/**
  * @brief Get string from config by key
  * @param key Name of value to fetch
  * @param defaultValue Value to be returned by function if key not found
@@ -180,6 +211,8 @@ std::string Config::Config::getString(std::string key, std::string defaultValue)
 
     if (it == this->data->end()) {
         this->data->insert(std::make_pair(key, defaultValue));
+
+        this->modified = true;
 
         if (this->autosave) {
             this->save();
@@ -245,6 +278,8 @@ void Config::Config::setString(std::string key, std::string value)
 
     if (it == this->data->end()) {
         this->data->insert(std::make_pair(key, value));
+
+        this->modified = true;
     } else {
         it->second = value;
     }
