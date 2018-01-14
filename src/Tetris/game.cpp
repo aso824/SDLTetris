@@ -26,6 +26,7 @@ void Tetris::Game::start()
     Logger::Logger::ok("Game started.");
 
     this->engine->clearScreen();
+    this->ui->draw();
 
     SDL_Event e;
     bool run = true;
@@ -37,7 +38,6 @@ void Tetris::Game::start()
             }
         }
 
-        this->ui->draw();
         this->engine->refresh();
     }
 }

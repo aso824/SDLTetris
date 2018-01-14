@@ -4,7 +4,8 @@
 #include <memory>
 #include <SDL2/SDL.h>
 #include "include/Gfx/engine.h"
-#include "include/Tetris/Ui/gameui.h"
+#include "Ui/gameui.h"
+#include "tile.h"
 
 namespace Tetris {
     class Game
