@@ -111,6 +111,40 @@ void Gfx::Engine::renderTexture(SDL_Texture* tex, SDL_Point pos)
 }
 
 /**
+ * @brief Render asset on desired place
+ * @param assetName Asset loaded by AssetsManager internal instance
+ * @param pos Wherwe texture will be rendered
+ */
+void Gfx::Engine::renderTexture(std::string assetName, SDL_Point pos)
+{
+    std::pair<SDL_Texture*, SDL_Rect*> asset = this->assets->getAsset(assetName);
+
+    if (asset.first == nullptr) {
+        Logger::Logger::warn("Can't render texture, unknown asset: " + assetName);
+        return;
+    }
+
+    SDL_Rect dst = {
+        pos.x,
+        pos.y,
+        0, 0
+    };
+
+    SDL_Rect* src = nullptr;
+
+    if (asset.second != nullptr) {
+        src = asset.second;
+
+        dst.w = src->w;
+        dst.h = src->h;
+    } else {
+        SDL_QueryTexture(asset.first, NULL, NULL, &dst.w, &dst.h);
+    }
+
+    SDL_RenderCopy(this->ren, asset.first, src, &dst);
+}
+
+/**
  * @brief Initialize SDL and subsystems, create objects like window and renderer
  */
 void Gfx::Engine::initAll()
@@ -159,6 +193,10 @@ void Gfx::Engine::initAll()
 
     // Create font manager
     this->fontmgr = std::make_shared<FontManager>();
+
+    // Create assets manager and load files
+    this->assets = std::make_shared<AssetsManager>(this->ren, this->fontmgr, "assets");
+    this->assets->load();
 }
 
 /**

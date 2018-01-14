@@ -7,6 +7,7 @@
 #include <SDL2/SDL_ttf.h>
 
 #include "fontmanager.h"
+#include "assetsmanager.h"
 #include "Exceptions/sdlexception.h"
 #include "include/Config/config.h"
 #include "include/defaults.h"
@@ -30,8 +31,10 @@ namespace Gfx {
             void refresh();
 
             void drawRect(SDL_Rect rect, SDL_Color* color = nullptr, bool filled = false);
+
             void renderTexture(SDL_Texture *tex, SDL_Rect pos);
             void renderTexture(SDL_Texture *tex, SDL_Point pos);
+            void renderTexture(std::string assetName, SDL_Point pos);
 
         protected:
             SDL_Window* win = nullptr;
@@ -39,6 +42,7 @@ namespace Gfx {
             unsigned int screenWidth;
             unsigned int screenHeight;
             std::shared_ptr<FontManager> fontmgr;
+            std::shared_ptr<AssetsManager> assets;
 
             void initAll();
             void destroyAll();

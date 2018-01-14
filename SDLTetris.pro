@@ -18,7 +18,9 @@ SOURCES += main.cpp \
     src/Gfx/textwriter.cpp \
     src/Tetris/tile.cpp \
     src/Tetris/map.cpp \
-    src/Tetris/maprenderer.cpp
+    src/Tetris/maprenderer.cpp \
+    src/Gfx/assetsmanager.cpp \
+    src/Gfx/Exceptions/invalidmanifestexception.cpp
 
 CONFIG += c++11
 
@@ -46,4 +48,6 @@ HEADERS += \
     include/Tetris/tile.h \
     include/Tetris/enums.h \
     include/Tetris/map.h \
-    include/Tetris/maprenderer.h
+    include/Tetris/maprenderer.h \
+    include/Gfx/assetsmanager.h \
+    include/Gfx/Exceptions/invalidmanifestexception.h

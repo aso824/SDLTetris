@@ -12,7 +12,6 @@ Tetris::MapRenderer::MapRenderer(std::shared_ptr<Gfx::Engine> engine, std::share
     this->map = map;
     this->area = area;
     this->tileSize = this->calculateTileSize();
-    this->tilesTexture = IMG_LoadTexture(this->engine->getRenderer(), "assets/images/tiles.png");
 }
 
 /**
@@ -20,7 +19,7 @@ Tetris::MapRenderer::MapRenderer(std::shared_ptr<Gfx::Engine> engine, std::share
  */
 Tetris::MapRenderer::~MapRenderer()
 {
-    SDL_DestroyTexture(this->tilesTexture);
+
 }
 
 /**
@@ -28,7 +27,9 @@ Tetris::MapRenderer::~MapRenderer()
  */
 void Tetris::MapRenderer::render()
 {
-    this->drawBlock(TILE_COLOR_BLANK, {325, 25});
+    for (int i = 1; i <= 10; i++) {
+        this->drawBlock(TileColors(i % 7 + 1), {326 + this->tileSize * (i - 1), 25});
+    }
 }
 
 /**
@@ -61,7 +62,7 @@ int Tetris::MapRenderer::calculateTileSize()
  */
 void Tetris::MapRenderer::drawBlock(TileColors color, int x, int y)
 {
-
+    this->drawBlock(color, {x, y});
 }
 
 /**
@@ -69,7 +70,22 @@ void Tetris::MapRenderer::drawBlock(TileColors color, int x, int y)
  * @param color Color of block to be drawn
  * @param p Block position, raw (on screen)
  */
-void Tetris::MapRenderer::drawBlock(Tetris::TileColors color, SDL_Point p)
+void Tetris::MapRenderer::drawBlock(TileColors color, SDL_Point p)
 {
-    this->engine->renderTexture(this->tilesTexture, p);
+    if (color == TILE_COLOR_BLANK)
+        return;
+
+    const std::string names[7] = {
+        "yellow",
+        "cyan",
+        "green",
+        "orange",
+        "red",
+        "purple",
+        "blue"
+    };
+
+    std::string assetName = "block_" + names[(int)color - 1];
+
+    this->engine->renderTexture(assetName, p);
 }
