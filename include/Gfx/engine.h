@@ -31,8 +31,10 @@ namespace Gfx {
             void refresh();
 
             void drawRect(SDL_Rect rect, SDL_Color* color = nullptr, bool filled = false);
+
             void renderTexture(SDL_Texture *tex, SDL_Rect pos);
             void renderTexture(SDL_Texture *tex, SDL_Point pos);
+            void renderTexture(std::string assetName, SDL_Point pos);
 
         protected:
             SDL_Window* win = nullptr;

@@ -27,7 +27,6 @@ namespace Tetris {
             std::shared_ptr<Map> map;
             SDL_Rect area;
             int tileSize;
-            SDL_Texture* tilesTexture;
 
             int calculateTileSize();
             void drawBlock(TileColors color, int x, int y);

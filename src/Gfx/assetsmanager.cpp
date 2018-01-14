@@ -20,7 +20,13 @@ Gfx::AssetsManager::~AssetsManager()
 {
     for (auto &it: *this->textures) {
         if (std::get<1>(it) != nullptr) {
+            // Free texture
             SDL_DestroyTexture(std::get<1>(it));
+        }
+
+        if (std::get<2>(it) != nullptr) {
+            // Free rect
+            delete std::get<2>(it);
         }
     }
 }
@@ -59,6 +65,25 @@ void Gfx::AssetsManager::load()
 }
 
 /**
+ * @brief Get asset from internal vector
+ * @param assetName Name of asset to fetch
+ * @return pair of texture and SDL_Rect for first SDL_RenderCopy parameter; both NULL if asset not found
+ */
+std::pair<SDL_Texture*, SDL_Rect*> Gfx::AssetsManager::getAsset(std::string assetName)
+{
+    std::pair<SDL_Texture*, SDL_Rect*> result;
+
+    for (auto &it: *this->textures) {
+        if (std::get<0>(it) == assetName) {
+            result.first = std::get<1>(it);
+            result.second = std::get<2>(it);
+        }
+    }
+
+    return result;
+}
+
+/**
  * @brief Load Manifest.txt from directory given in ctor
  * @return lines<vector<words>>, exploded by space
  * @throws Exceptions::InvalidManifestException if file can't be opened or parsed
@@ -75,6 +100,9 @@ std::vector<std::vector<std::string> > Gfx::AssetsManager::loadManifest()
 
     std::string buf;
     while (std::getline(manifest, buf)) {
+        if (buf.empty())
+            continue;
+
         std::vector<std::string> line = Utils::explode(buf, ' ');
         result.push_back(line);
     }
@@ -119,6 +147,8 @@ bool Gfx::AssetsManager::loadTexture(std::vector<std::string> manifestLine)
     // Parse additional arguments
     SDL_Rect *rect = nullptr;
     if (manifestLine.size() == 7) {
+        rect = new SDL_Rect;
+
         rect->x = stoi(manifestLine.at(3));
         rect->y = stoi(manifestLine.at(4));
         rect->w = stoi(manifestLine.at(5));

@@ -1,2 +1,9 @@
 font Roboto roboto.ttf
-texture tiles tiles.png
+
+texture block_yellow tiles.png 0 0 39 39
+texture block_cyan tiles.png 40 0 39 39
+texture block_green tiles.png 80 0 39 39
+texture block_orange tiles.png 120 0 39 39
+texture block_red tiles.png 160 0 39 39
+texture block_purple tiles.png 200 0 39 39
+texture block_blue tiles.png 240 0 39 39

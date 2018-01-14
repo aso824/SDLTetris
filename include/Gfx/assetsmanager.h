@@ -6,6 +6,7 @@
 #include <fstream>
 #include <memory>
 #include <tuple>
+#include <map>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "fontmanager.h"
@@ -21,6 +22,7 @@ namespace Gfx {
             ~AssetsManager();
 
             void load();
+            std::pair<SDL_Texture*, SDL_Rect*> getAsset(std::string assetName);
 
         protected:
             std::string dir;
