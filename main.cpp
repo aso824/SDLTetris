@@ -35,7 +35,7 @@ int main()
     shared_ptr<Gfx::Engine> engine;
 
     try {
-        engine = shared_ptr<Gfx::Engine>(new Gfx::Engine());
+        engine = make_shared<Gfx::Engine>();
     } catch (Gfx::Exceptions::SDLException &e) {
         Logger::Logger::error(e.what());
 

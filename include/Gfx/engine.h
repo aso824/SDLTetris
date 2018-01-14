@@ -27,8 +27,8 @@ namespace Gfx {
             void drawRect(SDL_Rect rect, SDL_Color* color = nullptr, bool filled = false);
 
         protected:
-            SDL_Window* win;
-            SDL_Renderer* ren;
+            SDL_Window* win = nullptr;
+            SDL_Renderer* ren = nullptr;
             unsigned int screenWidth;
             unsigned int screenHeight;
 
