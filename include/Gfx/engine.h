@@ -21,6 +21,7 @@ namespace Gfx {
             inline SDL_Window* getWindow() { return this->win; }
             inline SDL_Renderer* getRenderer() { return this->ren; }
             inline std::shared_ptr<FontManager> getFontManager() { return this->fontmgr; }
+            //inline std::shared_ptr<TextWriter> getTextWriter() { return this->writer; }
 
             inline unsigned int getScreenWidth() { return this->screenWidth; }
             inline unsigned int getScreenHeight() { return this->screenHeight; }
@@ -29,6 +30,7 @@ namespace Gfx {
             void refresh();
 
             void drawRect(SDL_Rect rect, SDL_Color* color = nullptr, bool filled = false);
+            void renderTexture(SDL_Texture *tex, SDL_Rect pos);
 
         protected:
             SDL_Window* win = nullptr;
@@ -36,6 +38,7 @@ namespace Gfx {
             unsigned int screenWidth;
             unsigned int screenHeight;
             std::shared_ptr<FontManager> fontmgr;
+            //std::shared_ptr<TextWriter> writer;
 
             void initAll();
             void destroyAll();

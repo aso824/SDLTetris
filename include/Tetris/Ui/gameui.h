@@ -5,6 +5,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include "include/Gfx/engine.h"
+#include "include/Gfx/textwriter.h"
 
 namespace Tetris {
     namespace Ui {
@@ -18,6 +19,7 @@ namespace Tetris {
 
             protected:
                 std::shared_ptr<Gfx::Engine> engine;
+                std::shared_ptr<Gfx::TextWriter> writer;
 
                 SDL_Rect area;
 

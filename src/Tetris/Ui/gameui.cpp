@@ -6,7 +6,7 @@
  */
 Tetris::Ui::GameUi::GameUi(std::shared_ptr<Gfx::Engine> engine, SDL_Rect area) : engine(engine), area(area)
 {
-
+    this->writer = std::unique_ptr<Gfx::TextWriter>(new Gfx::TextWriter(engine));
 }
 
 /**
@@ -28,20 +28,14 @@ void Tetris::Ui::GameUi::draw()
 
     this->drawShadedBoxFrame(this->calcTilesArea());
 
-    try {
-        TTF_Font* font = this->engine->getFontManager()->getFont("Roboto", 14).fontObj;
-        SDL_Surface *surf = TTF_RenderUTF8_Blended(font, "Następny:", {255, 255, 255, 255});
-        SDL_Texture *tex = SDL_CreateTextureFromSurface(this->engine->getRenderer(), surf);
-        SDL_Rect dst = {715, 60, 150, 30};
-        SDL_RenderCopy(this->engine->getRenderer(), tex, NULL, &dst);
+    SDL_Rect nextTileArea = this->calcNextTileArea();
+    SDL_Point nextTileLabel = {
+        nextTileArea.x,
+        (int)(nextTileArea.y - nextTileArea.w * 0.4)
+    };
 
-        SDL_FreeSurface(surf);
-        SDL_DestroyTexture(tex);
-    } catch (Gfx::Exceptions::UnknownFontException &e) {
-        //Logger::Logger::warn(e.what());
-    }
-
-    this->drawShadedBoxFrame(this->calcNextTileArea());
+    this->writer->writeText("Następny:", "Roboto", 48, nextTileLabel, {255, 255, 255, 255}, nextTileArea.w);
+    this->drawShadedBoxFrame(nextTileArea);
 }
 
 /**
