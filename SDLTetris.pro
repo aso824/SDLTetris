@@ -11,7 +11,8 @@ SOURCES += main.cpp \
     src/Config/writeexception.cpp \
     src/Gfx/engine.cpp \
     src/Gfx/Exceptions/sdlexception.cpp \
-    src/Tetris/game.cpp
+    src/Tetris/game.cpp \
+    src/Tetris/Ui/gameui.cpp
 
 CONFIG += c++11
 
@@ -29,4 +30,5 @@ HEADERS += \
     include/Gfx/engine.h \
     include/defaults.h \
     include/Gfx/Exceptions/sdlexception.h \
-    include/Tetris/game.h
+    include/Tetris/game.h \
+    include/Tetris/Ui/gameui.h

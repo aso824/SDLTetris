@@ -43,6 +43,25 @@ void Gfx::Engine::refresh()
 }
 
 /**
+ * @brief Draws a rectangle on renderer
+ * @param rect Rectangle position and dimensions
+ * @param color Line or fill color
+ * @param filled If true, rectangle will be filled; otherwise only border will be drawn
+ */
+void Gfx::Engine::drawRect(SDL_Rect rect, SDL_Color* color, bool filled)
+{
+    if (color != nullptr) {
+        SDL_SetRenderDrawColor(this->ren, color->r, color->g, color->b, color->a);
+    }
+
+    if (filled) {
+        SDL_RenderFillRect(this->ren, &rect);
+    } else {
+        SDL_RenderDrawRect(this->ren, &rect);
+    }
+}
+
+/**
  * @brief Initialize SDL and subsystems, create objects like window and renderer
  */
 void Gfx::Engine::initAll()
@@ -53,10 +72,10 @@ void Gfx::Engine::initAll()
     }
 
     // Create window
-    const int w = Config::Config::getInstance().getInt("screen_w", DEFAULT_SCREEN_W);
-    const int h = Config::Config::getInstance().getInt("screen_h", DEFAULT_SCREEN_H);
+    this->screenWidth = Config::Config::getInstance().getInt("screen_w", DEFAULT_SCREEN_W);
+    this->screenHeight = Config::Config::getInstance().getInt("screen_h", DEFAULT_SCREEN_H);
 
-    this->win = SDL_CreateWindow("SDL Tetris v1.0", 100, 100, w, h, SDL_WINDOW_SHOWN);
+    this->win = SDL_CreateWindow("SDL Tetris v1.0", 100, 100, this->screenWidth, this->screenHeight, SDL_WINDOW_SHOWN);
 
     if (this->win == nullptr) {
         throw Exceptions::SDLException("creating window");
