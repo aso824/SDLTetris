@@ -3,8 +3,10 @@
 
 #include <vector>
 #include <map>
+#include <algorithm>
 #include <SDL2/SDL.h>
 #include "enums.h"
+#include "include/utils.h"
 
 namespace Tetris {
     typedef std::vector<std::vector<bool>> TileShape;
@@ -24,6 +26,10 @@ namespace Tetris {
 
             void setPosition(int x, int y);
             void setPosition(SDL_Point p);
+
+            void rotateLeft();
+            void rotateRight();
+            void rotate(RotationDirection direction);
         protected:
             TileType type;
             TileShape shape;

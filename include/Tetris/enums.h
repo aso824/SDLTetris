@@ -15,6 +15,11 @@ namespace Tetris {
         TILE_COLOR_PURPLE,
         TILE_COLOR_BLUE
     };
+
+    enum RotationDirection {
+        ROTATE_LEFT,
+        ROTATE_RIGHT
+    };
 }
 
 #endif // ENUMS_H

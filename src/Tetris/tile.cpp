@@ -127,6 +127,51 @@ void Tetris::Tile::setPosition(SDL_Point p)
 }
 
 /**
+ * @brief Do tile rotation to the left side by 90 degrees
+ */
+void Tetris::Tile::rotateLeft()
+{
+    // Reverse each row
+    for (unsigned int i = 0; i < shape.size(); i++)
+        std::reverse(shape[i].begin(), shape[i].end());
+
+    // Transpose
+    shape = Utils::transpose(shape);
+
+    // Swap tile dimensions
+    std::swap(this->rect.w, this->rect.h);
+}
+
+/**
+ * @brief Do tile rotation to the right side by 90 degrees
+ */
+void Tetris::Tile::rotateRight()
+{
+    // Transpose
+    shape = Utils::transpose(shape);
+
+    // Reverse each row
+    for (unsigned int i = 0; i < shape.size(); i++)
+        std::reverse(shape[i].begin(), shape[i].end());
+
+    // Swap tile dimensions
+    std::swap(this->rect.w, this->rect.h);
+}
+
+/**
+ * @brief Rotate tile to given direction by 90 degrees
+ * @param direction Direction from enums.h
+ */
+void Tetris::Tile::rotate(Tetris::RotationDirection direction)
+{
+    if (direction == ROTATE_LEFT) {
+        this->rotateLeft();
+    } else {
+        this->rotateRight();
+    }
+}
+
+/**
  * @brief Set tile color, depends of tile type
  */
 void Tetris::Tile::setColor()
