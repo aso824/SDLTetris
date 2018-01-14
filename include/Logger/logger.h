@@ -21,6 +21,8 @@ namespace Logger {
             static void ok(std::string msg);
             static void text(std::string msg);
             static void debug(std::string msg);
+            static void debug(int msg);
+            static void debug(float msg);
 
         protected:
             Logger();

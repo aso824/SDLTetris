@@ -83,6 +83,24 @@ void Logger::Logger::debug(std::string msg)
 }
 
 /**
+ * @brief Alias for int in debug message
+ * @param msg Integer to be displayed as debug info
+ */
+void Logger::Logger::debug(int msg)
+{
+    Logger::debug(std::to_string(msg));
+}
+
+/**
+ * @brief Alias for float in debug message
+ * @param msg Float number to be displayed as debug info
+ */
+void Logger::Logger::debug(float msg)
+{
+    Logger::debug(std::to_string(msg));
+}
+
+/**
  * @brief Ctor
  */
 Logger::Logger::Logger()
