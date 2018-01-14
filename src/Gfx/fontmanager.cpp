@@ -87,7 +87,7 @@ Gfx::Font Gfx::FontManager::loadFont(std::string fontName, int size)
     newFont.name = fontName;
     newFont.size = size;
 
-    std::string filepath = std::string("assets/fonts/") + this->fontFiles[fontName];
+    std::string filepath = this->fontFiles[fontName];
     newFont.fontObj = TTF_OpenFont(filepath.c_str(), size);
 
     this->fonts.push_back(newFont);

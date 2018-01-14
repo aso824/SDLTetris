@@ -7,6 +7,7 @@
 #include <SDL2/SDL_ttf.h>
 
 #include "fontmanager.h"
+#include "assetsmanager.h"
 #include "Exceptions/sdlexception.h"
 #include "include/Config/config.h"
 #include "include/defaults.h"
@@ -39,6 +40,7 @@ namespace Gfx {
             unsigned int screenWidth;
             unsigned int screenHeight;
             std::shared_ptr<FontManager> fontmgr;
+            std::shared_ptr<AssetsManager> assets;
 
             void initAll();
             void destroyAll();
