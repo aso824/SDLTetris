@@ -6,6 +6,7 @@
 #include "include/Gfx/engine.h"
 #include "Ui/gameui.h"
 #include "tile.h"
+#include "map.h"
 
 namespace Tetris {
     class Game

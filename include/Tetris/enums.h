@@ -7,6 +7,7 @@ namespace Tetris {
     };
 
     enum TileColors {
+        TILE_COLOR_BLANK,
         TILE_COLOR_YELLOW,
         TILE_COLOR_CYAN,
         TILE_COLOR_GREEN,
