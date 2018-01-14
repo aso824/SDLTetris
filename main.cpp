@@ -54,13 +54,15 @@ int main()
         game->setGraphicsEngine(engine);
 
         game->start();
+    } catch (std::logic_error &e) {
+        Logger::Logger::error(string("Unhandled logic error: ") + e.what());
     } catch (...) {
         Logger::Logger::error("Unhandled Tetris::Game exception in main()");
 
         return EXIT_FAILURE;
     }
 
-    Logger::Logger::info("Game was closed successfully.");
+    Logger::Logger::info("Game was closed successfully");
 
     return EXIT_SUCCESS;
 }

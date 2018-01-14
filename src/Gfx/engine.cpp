@@ -101,6 +101,16 @@ void Gfx::Engine::renderTexture(SDL_Texture* tex, SDL_Rect pos)
 }
 
 /**
+ * @brief Alias for renderTexture(tex, rect)
+ * @param tex Texture to be rendered
+ * @param pos Where texture will be rendered
+ */
+void Gfx::Engine::renderTexture(SDL_Texture* tex, SDL_Point pos)
+{
+    this->renderTexture(tex, {pos.x, pos.y, 0, 0});
+}
+
+/**
  * @brief Initialize SDL and subsystems, create objects like window and renderer
  */
 void Gfx::Engine::initAll()
@@ -108,6 +118,10 @@ void Gfx::Engine::initAll()
     // Init SDL and subsystems
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         throw Exceptions::SDLException("initializing SDL");
+    }
+
+    if ((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) != IMG_INIT_PNG) {
+        throw Exceptions::SDLException("initializing IMG");
     }
 
     if (TTF_Init() != 0) {
@@ -145,10 +159,6 @@ void Gfx::Engine::initAll()
 
     // Create font manager
     this->fontmgr = std::make_shared<FontManager>();
-
-    // Create text writer
-    //TextWriter* writer = new TextWriter(this, this->fontmgr);
-    //this->writer = std::make_shared<TextWriter>();
 }
 
 /**
@@ -158,6 +168,9 @@ void Gfx::Engine::destroyAll()
 {
     SDL_DestroyRenderer(this->ren);
     SDL_DestroyWindow(this->win);
+
+    TTF_Quit();
+    IMG_Quit();
     SDL_Quit();
 }
 
