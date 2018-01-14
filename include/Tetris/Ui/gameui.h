@@ -10,13 +10,15 @@ namespace Tetris {
         {
             public:
                 GameUi(std::shared_ptr<Gfx::Engine> engine, SDL_Rect area);
+                ~GameUi();
+
                 void draw();
 
             protected:
                 std::shared_ptr<Gfx::Engine> engine;
                 SDL_Rect area;
                 SDL_Rect tilesArea;
-                SDL_Rect nextTileArea;
+                SDL_Rect sidebarArea;
 
                 const int padding = 25;
         };
