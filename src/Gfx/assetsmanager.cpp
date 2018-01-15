@@ -183,5 +183,5 @@ SDL_Texture* Gfx::AssetsManager::getTextureObject(std::string &filename)
         }
     }
 
-    return this->textureObjects.at(filename);
+    return this->textureObjects[filename];
 }
