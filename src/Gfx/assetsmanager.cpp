@@ -19,14 +19,15 @@ Gfx::AssetsManager::AssetsManager(SDL_Renderer* ren, std::shared_ptr<FontManager
 Gfx::AssetsManager::~AssetsManager()
 {
     for (auto &it: *this->textures) {
-        if (std::get<1>(it) != nullptr) {
-            // Free texture
-            SDL_DestroyTexture(std::get<1>(it));
-        }
-
         if (std::get<2>(it) != nullptr) {
             // Free rect
             delete std::get<2>(it);
+        }
+    }
+
+    for (auto &it: this->textureObjects) {
+        if (it.second != nullptr) {
+            SDL_DestroyTexture(it.second);
         }
     }
 }
@@ -128,16 +129,8 @@ void Gfx::AssetsManager::loadFont(std::vector<std::string> manifestLine)
 bool Gfx::AssetsManager::loadTexture(std::vector<std::string> manifestLine)
 {
     std::string assetName = manifestLine.at(1);
-    std::string filepath = this->dir + "/images/" + manifestLine.at(2);
-    std::string extension = this->getFileExtension(manifestLine.at(2));
-    SDL_Texture* tex = nullptr;
-
-    if (extension == "png") {
-        tex = IMG_LoadTexture(this->ren, filepath.c_str());
-    } else {
-        Logger::Logger::warn("Only PNG textures are currently supported, sorry!");
-        return false;
-    }
+    std::string filename =manifestLine.at(2);
+    SDL_Texture* tex = this->getTextureObject(filename);
 
     if (tex == nullptr) {
         Logger::Logger::warn("Failed to load texture: " + assetName);
@@ -170,4 +163,25 @@ std::string Gfx::AssetsManager::getFileExtension(std::string filename)
 {
     std::vector<std::string> parts = Utils::explode(filename, '.');
     return parts.back();
+}
+
+/**
+ * @brief Return SDL_Texture by name
+ * @param filename Filename (key) with texture
+ * @return SDL_Texture object
+ */
+SDL_Texture* Gfx::AssetsManager::getTextureObject(std::string &filename)
+{
+    if (this->textureObjects[filename] == nullptr) {
+        std::string filepath = this->dir + "/images/" + filename;
+        std::string extension = this->getFileExtension(filename);
+
+        if (extension == "png") {
+            this->textureObjects[filename] = IMG_LoadTexture(this->ren, filepath.c_str());
+        } else {
+            Logger::Logger::warn("Only PNG textures are currently supported, sorry!");
+        }
+    }
+
+    return this->textureObjects[filename];
 }

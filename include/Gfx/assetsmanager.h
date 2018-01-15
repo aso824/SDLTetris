@@ -29,11 +29,13 @@ namespace Gfx {
             SDL_Renderer* ren;
             std::shared_ptr<FontManager> fontmgr;
             std::unique_ptr<std::vector<std::tuple<std::string, SDL_Texture*, SDL_Rect*>>> textures;
+            std::map<std::string, SDL_Texture*> textureObjects;
 
             std::vector<std::vector<std::string>> loadManifest();
             void loadFont(std::vector<std::string> manifestLine);
             bool loadTexture(std::vector<std::string> manifestLine);
             std::string getFileExtension(std::string filename);
+            SDL_Texture* getTextureObject(std::string& filename);
     };
 }
 
