@@ -28,7 +28,7 @@ Tetris::MapRenderer::~MapRenderer()
 void Tetris::MapRenderer::render()
 {
     for (int i = 1; i <= 10; i++) {
-        this->drawBlock(TileColors(i % 7 + 1), {326 + this->tileSize * (i - 1), 25});
+        this->drawBlock(TileColors(i % 7 + 1), i - 1, 19);
     }
 }
 
@@ -37,7 +37,7 @@ void Tetris::MapRenderer::render()
  * @return Tile size in pixels
  * @throws Tetris::Exceptions::InvalidGeometry when ratio isn't 1:2
  */
-int Tetris::MapRenderer::calculateTileSize()
+float Tetris::MapRenderer::calculateTileSize()
 {
     float ratio = (float)this->area.w / (float)this->area.h;
     if (ratio != 0.5) {
@@ -52,7 +52,7 @@ int Tetris::MapRenderer::calculateTileSize()
         throw std::logic_error("Game area resolution ratio is invalid");
     }
 
-    return this->area.w / 10;
+    return (float)this->area.w / 10.f;
 }
 
 /**
@@ -62,7 +62,10 @@ int Tetris::MapRenderer::calculateTileSize()
  */
 void Tetris::MapRenderer::drawBlock(TileColors color, int x, int y)
 {
-    this->drawBlock(color, {x, y});
+    SDL_Point p;
+    p.x = this->area.x + this->tileSize * x;
+    p.y = this->area.y + this->tileSize * y;
+    this->drawBlock(color, p);
 }
 
 /**
