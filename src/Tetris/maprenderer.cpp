@@ -27,8 +27,10 @@ Tetris::MapRenderer::~MapRenderer()
  */
 void Tetris::MapRenderer::render()
 {
-    for (int i = 1; i <= 10; i++) {
-        this->drawBlock(TileColors(i % 7 + 1), i - 1, 19);
+    for (int i = 0; i < 20; i++) {
+        for (int j = 0; j < 10; j++) {
+            this->drawBlock(this->map->getData()->at(i).at(j), j, i);
+        }
     }
 }
 
