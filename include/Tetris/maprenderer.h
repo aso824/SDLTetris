@@ -7,6 +7,7 @@
 #include <SDL2/SDL_image.h>
 #include "map.h"
 #include "enums.h"
+#include "tile.h"
 #include "include/Gfx/engine.h"
 
 namespace Tetris {
@@ -21,6 +22,7 @@ namespace Tetris {
             ~MapRenderer();
 
             void render();
+            void drawTile(std::shared_ptr<Tile> t);
 
         protected:
             std::shared_ptr<Gfx::Engine> engine;
@@ -29,8 +31,9 @@ namespace Tetris {
             float tileSize;
 
             float calculateTileSize();
-            void drawBlock(TileColors color, int x, int y);
+
             void drawBlock(TileColors color, SDL_Point p);
+            void drawBlock(TileColors color, int x, int y);
     };
 }
 
