@@ -5,8 +5,7 @@
  */
 Gfx::FontManager::FontManager()
 {
-    this->fontFiles = std::unique_ptr<std::map<std::string, std::string>>(new std::map<std::string, std::string>);
-    this->fonts = std::unique_ptr<std::vector<Font>>(new std::vector<Font>);
+
 }
 
 /**
@@ -24,7 +23,7 @@ Gfx::FontManager::~FontManager()
  */
 void Gfx::FontManager::addFont(std::string fontName, std::string filename)
 {
-    this->fontFiles->at(fontName) = filename;
+    this->fontFiles[fontName] = filename;
 }
 
 /**
@@ -41,7 +40,7 @@ Gfx::Font Gfx::FontManager::getFont(std::string fontName, int size)
         throw Exceptions::UnknownFontException(fontName);
     }
 
-    for (auto &it: *this->fonts) {
+    for (auto &it: this->fonts) {
         if (it.name == fontName && it.size == size) {
             // Cache hit
             return it;
@@ -57,9 +56,9 @@ Gfx::Font Gfx::FontManager::getFont(std::string fontName, int size)
  */
 void Gfx::FontManager::clearCache()
 {
-    for (int i = this->fonts->size() - 1; i >= 0; i--) {
-        TTF_CloseFont(this->fonts->at(i).fontObj);
-        this->fonts->erase(this->fonts->begin() + i);
+    for (int i = this->fonts.size() - 1; i >= 0; i--) {
+        TTF_CloseFont(this->fonts[i].fontObj);
+        this->fonts.erase(this->fonts.begin() + i);
     }
 }
 
@@ -71,9 +70,9 @@ void Gfx::FontManager::clearCache()
 bool Gfx::FontManager::isFontExistInDictionary(std::string fontName)
 {
     std::map<std::string, std::string>::const_iterator it;
-    it = this->fontFiles->find(fontName);
+    it = this->fontFiles.find(fontName);
 
-    return (it != this->fontFiles->end());
+    return (it != this->fontFiles.end());
 }
 
 /**
@@ -88,9 +87,9 @@ Gfx::Font Gfx::FontManager::loadFont(std::string fontName, int size)
     newFont.name = fontName;
     newFont.size = size;
 
-    std::string filepath = this->fontFiles->at(fontName);
+    std::string filepath = this->fontFiles[fontName];
     newFont.fontObj = TTF_OpenFont(filepath.c_str(), size);
 
-    this->fonts->push_back(newFont);
+    this->fonts.push_back(newFont);
     return newFont;
 }
