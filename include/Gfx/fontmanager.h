@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <memory>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include "include/Gfx/font.h"
@@ -21,8 +22,8 @@ namespace Gfx {
             void clearCache();
 
         protected:
-            std::map<std::string, std::string> fontFiles;
-            std::vector<Font> fonts;
+            std::unique_ptr<std::map<std::string, std::string>> fontFiles;
+            std::unique_ptr<std::vector<Font>> fonts;
 
             bool isFontExistInDictionary(std::string fontName);
             Gfx::Font loadFont(std::string fontName, int size);
