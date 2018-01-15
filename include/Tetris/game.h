@@ -6,6 +6,7 @@
 #include "include/Gfx/engine.h"
 #include "Ui/gameui.h"
 #include "tile.h"
+#include "tilefactory.h"
 #include "map.h"
 #include "maprenderer.h"
 
@@ -24,6 +25,8 @@ namespace Tetris {
             std::unique_ptr<Ui::GameUi> ui;
             std::shared_ptr<Map> map;
             std::shared_ptr<MapRenderer> mapRen;
+            std::shared_ptr<Tile> currentTile;
+            TileFactory tileFactory;
 
             SDL_Rect getMainGameRect();
     };

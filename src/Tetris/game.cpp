@@ -6,6 +6,8 @@
 Tetris::Game::Game()
 {
     this->map = std::make_shared<Map>();
+    this->currentTile = std::move(this->tileFactory.getRandomTileSharedPtr());
+    this->currentTile->setPosition({3, 3});
 }
 
 /**
@@ -47,6 +49,7 @@ void Tetris::Game::start()
             }
         }
 
+        this->mapRen->drawTile(this->currentTile);
         this->mapRen->render();
         this->engine->refresh();
     }
