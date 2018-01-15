@@ -68,14 +68,6 @@ void Gfx::Engine::drawRect(SDL_Rect rect, SDL_Color* color, bool filled)
  */
 void Gfx::Engine::renderTexture(SDL_Texture* tex, SDL_Rect pos)
 {
-    /*SDL_Rect dst = {
-        position.x,
-        position.y,
-        0, 0
-    };
-
-    SDL_QueryTexture(tex, NULL, NULL, &dst.w, &dst.h);*/
-
     int w = 0, h = 0;
     SDL_QueryTexture(tex, NULL, NULL, &w, &h);
 

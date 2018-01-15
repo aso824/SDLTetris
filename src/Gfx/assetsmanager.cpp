@@ -132,13 +132,6 @@ bool Gfx::AssetsManager::loadTexture(std::vector<std::string> manifestLine)
     std::string filename =manifestLine.at(2);
     SDL_Texture* tex = this->getTextureObject(filename);
 
-    /*if (extension == "png") {
-        tex = IMG_LoadTexture(this->ren, filepath.c_str());
-    } else {
-        Logger::Logger::warn("Only PNG textures are currently supported, sorry!");
-        return false;
-    }*/
-
     if (tex == nullptr) {
         Logger::Logger::warn("Failed to load texture: " + assetName);
         return false;
