@@ -181,6 +181,7 @@ void Tetris::Tile::makeMove(Tetris::MovementDirection direction)
         case MOVE_DOWN: this->rect.y++; break;
         case MOVE_LEFT: this->rect.x--; break;
         case MOVE_RIGHT: this->rect.x++; break;
+        case MOVE_UP: this->rect.y--; break;
     }
 }
 
