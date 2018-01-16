@@ -86,6 +86,8 @@ void Tetris::Game::start()
         // @TODO: repair bug with tile over frame and remove this fix
         this->ui->drawTilesFrame();
 
+        this->movementMgr->tick(this->currentTile);
+
         this->engine->refresh();
     }
 }
