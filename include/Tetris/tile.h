@@ -35,7 +35,7 @@ namespace Tetris {
         protected:
             TileType type;
             TileShape shape;
-            TileColors color;
+            TileColors color = TileColors::TILE_COLOR_BLANK;
             SDL_Rect rect;
 
             int angle = 0;

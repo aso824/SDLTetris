@@ -42,6 +42,12 @@ void Tetris::MapRenderer::render()
  */
 void Tetris::MapRenderer::drawTile(std::shared_ptr<Tetris::Tile> t)
 {
+    // Check against invalid tiles
+    if (t->getColor() == TileColors::TILE_COLOR_BLANK) {
+        Logger::Logger::warn("Can't draw blank tile!");
+        return;
+    }
+
     SDL_Point pos = t->getPosition();
 
     for (int y = 0; y < t->getHeight(); y++) {
