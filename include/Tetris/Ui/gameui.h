@@ -17,6 +17,7 @@ namespace Tetris {
 
                 SDL_Rect getTilesArea();
                 void draw();
+                void drawTilesFrame();
 
             protected:
                 std::shared_ptr<Gfx::Engine> engine;

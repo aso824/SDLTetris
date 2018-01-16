@@ -31,11 +31,7 @@ SDL_Rect Tetris::Ui::GameUi::getTilesArea()
  */
 void Tetris::Ui::GameUi::draw()
 {
-    // For debugging
-    //SDL_Color green = {0, 255, 0, 0};
-    //this->engine->drawRect(this->sidebarArea, &green);
-
-    this->drawShadedBoxFrame(this->calcTilesArea());
+    this->drawTilesFrame();
 
     SDL_Rect nextTileArea = this->calcNextTileArea();
     SDL_Point nextTileLabel = {
@@ -45,6 +41,14 @@ void Tetris::Ui::GameUi::draw()
 
     this->writer->writeText("Następny:", "Roboto", 48, nextTileLabel, {255, 255, 255, 255}, nextTileArea.w);
     this->drawShadedBoxFrame(nextTileArea);
+}
+
+/**
+ * @brief Draw frame around tiles area
+ */
+void Tetris::Ui::GameUi::drawTilesFrame()
+{
+    this->drawShadedBoxFrame(this->calcTilesArea());
 }
 
 /**

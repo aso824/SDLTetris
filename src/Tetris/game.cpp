@@ -7,7 +7,7 @@ Tetris::Game::Game()
 {
     this->map = std::make_shared<Map>();
     this->currentTile = std::move(this->tileFactory.getRandomTileSharedPtr());
-    this->currentTile->setPosition({3, 3});
+    this->currentTile->setPosition({7, 3});
 }
 
 /**
@@ -55,6 +55,9 @@ void Tetris::Game::start()
 
         this->mapRen->render();
         this->mapRen->drawTile(this->currentTile);
+
+        // @TODO: repair bug with tile over frame and remove this fix
+        this->ui->drawTilesFrame();
 
         this->engine->refresh();
     }
