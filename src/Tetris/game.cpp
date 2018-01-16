@@ -10,6 +10,7 @@ Tetris::Game::Game()
     // Prepare movement manager
     this->movementMgr = std::unique_ptr<MovementManager>(new MovementManager(this->map));
     this->movementMgr->addCollisionChecker(std::make_shared<Collisions::WallCollisionChecker>());
+    this->movementMgr->addCollisionChecker(std::make_shared<Collisions::MapCollisionChecker>(this->map));
 
     this->currentTile = std::move(this->tileFactory.getRandomTileSharedPtr());
     this->currentTile->setPosition({3, 3});
@@ -62,6 +63,12 @@ void Tetris::Game::start()
 
                 if (e.key.keysym.scancode == SDL_SCANCODE_RIGHT)
                     this->movementMgr->makeMove(this->currentTile, MOVE_RIGHT);
+
+                if (e.key.keysym.scancode == SDL_SCANCODE_SPACE) {
+                    this->map->insertTile(this->currentTile);
+                    this->currentTile = std::move(this->tileFactory.getRandomTileSharedPtr());
+                    this->currentTile->setPosition({3, 3});
+                }
             }
 
 

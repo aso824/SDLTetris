@@ -11,6 +11,7 @@
 #include "maprenderer.h"
 #include "movementmanager.h"
 #include "Collisions/wallcollisionchecker.h"
+#include "Collisions/mapcollisionchecker.h"
 
 namespace Tetris {
     class Game
