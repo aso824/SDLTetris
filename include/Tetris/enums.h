@@ -25,7 +25,8 @@ namespace Tetris {
     enum MovementDirection {
         MOVE_LEFT,
         MOVE_RIGHT,
-        MOVE_DOWN
+        MOVE_DOWN,
+        MOVE_UP
     };
 }
 
