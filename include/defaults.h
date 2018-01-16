@@ -5,5 +5,6 @@
 #define DEFAULT_SCREEN_H 480
 #define DEFAULT_VSYNC true
 #define DEFAULT_RENDERER_SOFTWARE false
+#define DEFAULT_AA true
 
 #endif // DEFAULTS_H

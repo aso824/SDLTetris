@@ -194,7 +194,11 @@ void Gfx::Engine::initAll()
     }
 
     // Set antialiasing mode to linear
-    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
+    bool antialiasing = Config::Config::getInstance().getBoolean("antialiasing", true);
+
+    if (antialiasing) {
+        SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
+    }
 
     // Create font manager
     this->fontmgr = std::make_shared<FontManager>();
