@@ -21,6 +21,12 @@ namespace Tetris {
         ROTATE_LEFT,
         ROTATE_RIGHT
     };
+
+    enum MovementDirection {
+        MOVE_LEFT,
+        MOVE_RIGHT,
+        MOVE_DOWN
+    };
 }
 
 #endif // ENUMS_H

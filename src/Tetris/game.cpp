@@ -47,6 +47,10 @@ void Tetris::Game::start()
             if (e.type == SDL_QUIT) {
                 run = false;
             }
+
+            if (e.type == SDL_KEYDOWN && e.key.keysym.scancode == SDL_SCANCODE_DOWN) {
+                this->currentTile->makeMove(MOVE_DOWN);
+            }
         }
 
         this->mapRen->render();

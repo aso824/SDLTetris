@@ -30,6 +30,8 @@ namespace Tetris {
             void rotateLeft();
             void rotateRight();
             void rotate(RotationDirection direction);
+
+            void makeMove(MovementDirection direction);
         protected:
             TileType type;
             TileShape shape;

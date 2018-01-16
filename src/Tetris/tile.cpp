@@ -172,6 +172,19 @@ void Tetris::Tile::rotate(Tetris::RotationDirection direction)
 }
 
 /**
+ * @brief Move a tile without checking collisions
+ * @param direction Direction where tile will be moved
+ */
+void Tetris::Tile::makeMove(Tetris::MovementDirection direction)
+{
+    switch (direction) {
+        case MOVE_DOWN: this->rect.y++; break;
+        case MOVE_LEFT: this->rect.x--; break;
+        case MOVE_RIGHT: this->rect.x++; break;
+    }
+}
+
+/**
  * @brief Set tile color, depends of tile type
  */
 void Tetris::Tile::setColor()
