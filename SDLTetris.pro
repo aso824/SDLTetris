@@ -21,7 +21,9 @@ SOURCES += main.cpp \
     src/Tetris/maprenderer.cpp \
     src/Gfx/assetsmanager.cpp \
     src/Gfx/Exceptions/invalidmanifestexception.cpp \
-    src/Tetris/tilefactory.cpp
+    src/Tetris/tilefactory.cpp \
+    src/Tetris/Collisions/abstractcollisionchecker.cpp \
+    src/Tetris/Collisions/wallcollisionchecker.cpp
 
 CONFIG += c++11
 
@@ -52,4 +54,6 @@ HEADERS += \
     include/Tetris/maprenderer.h \
     include/Gfx/assetsmanager.h \
     include/Gfx/Exceptions/invalidmanifestexception.h \
-    include/Tetris/tilefactory.h
+    include/Tetris/tilefactory.h \
+    include/Tetris/Collisions/abstractcollisionchecker.h \
+    include/Tetris/Collisions/wallcollisionchecker.h
