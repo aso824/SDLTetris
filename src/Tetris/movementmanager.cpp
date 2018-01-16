@@ -34,19 +34,13 @@ bool Tetris::MovementManager::isMovePossible(std::shared_ptr<Tetris::Tile> tile,
     tile->makeMove(direction);
 
     // Check collisions
-    bool flag = true;
-
-    for (auto &it: this->collisionCheckers) {
-        if (it->isCurrentPositionCorrect(tile) == false) {
-            flag = false;
-        }
-    }
+    bool hadCollision = this->iterateOverCheckers(tile);
 
     // Undo move
     this->undoMove(tile, direction);
 
     // Return result
-    return flag;
+    return hadCollision;
 }
 
 /**
@@ -59,6 +53,47 @@ bool Tetris::MovementManager::makeMove(std::shared_ptr<Tetris::Tile> tile, Tetri
 {
     if (this->isMovePossible(tile, direction)) {
         tile->makeMove(direction);
+        return true;
+    }
+
+    return false;
+}
+
+/**
+ * @brief Check given rotation direction for tile against all registered Collision Checkers
+ * @param tile Tile to be checked
+ * @param direction Desired direction
+ * @return True if move is possible, else false
+ */
+bool Tetris::MovementManager::isRotationPossible(std::shared_ptr<Tetris::Tile> tile, Tetris::RotationDirection direction)
+{
+    // Nothing to check
+    if (this->collisionCheckers.size() == 0)
+        return true;
+
+    // Make move (will be reversed)
+    tile->rotate(direction);
+
+    // Check collisions
+    bool hadCollision = this->iterateOverCheckers(tile);
+
+    // Undo move
+    this->undoRotation(tile, direction);
+
+    // Return result
+    return hadCollision;
+}
+
+/**
+ * @brief Try to make Tile rotation in given direction
+ * @param tile Tile to be checked and rotated
+ * @param direction Desired direction
+ * @return True if Tile was rotated, false if any CollisionChecker denied rotation in given direction
+ */
+bool Tetris::MovementManager::makeRotation(std::shared_ptr<Tetris::Tile> tile, Tetris::RotationDirection direction)
+{
+    if (this->isRotationPossible(tile, direction)) {
+        tile->rotate(direction);
         return true;
     }
 
@@ -82,4 +117,34 @@ void Tetris::MovementManager::undoMove(std::shared_ptr<Tetris::Tile> tile, Tetri
     }
 
     tile->makeMove(newDirection);
+}
+
+/**
+ * @brief Make rotation on tile in opposite direction
+ * @param tile Tile to be rotated
+ * @param direction Original direction to be inverted
+ */
+void Tetris::MovementManager::undoRotation(std::shared_ptr<Tetris::Tile> tile, Tetris::RotationDirection direction)
+{
+    if (direction == ROTATE_LEFT) {
+        tile->rotateRight();
+    } else if (direction == ROTATE_RIGHT) {
+        tile->rotateLeft();
+    }
+}
+
+/**
+ * @brief Check current Tile position against all registered checkers
+ * @param tile Tile to be checked
+ * @return False if any checker returned false, true only if all checkers returned true
+ */
+bool Tetris::MovementManager::iterateOverCheckers(std::shared_ptr<Tetris::Tile> tile)
+{
+    for (auto &it: this->collisionCheckers) {
+        if (it->isCurrentPositionCorrect(tile) == false) {
+            return false;
+        }
+    }
+
+    return true;
 }

@@ -64,6 +64,12 @@ void Tetris::Game::start()
                 if (e.key.keysym.scancode == SDL_SCANCODE_RIGHT)
                     this->movementMgr->makeMove(this->currentTile, MOVE_RIGHT);
 
+                if (e.key.keysym.scancode == SDL_SCANCODE_Z)
+                    this->movementMgr->makeRotation(this->currentTile, ROTATE_LEFT);
+
+                if (e.key.keysym.scancode == SDL_SCANCODE_X)
+                    this->movementMgr->makeRotation(this->currentTile, ROTATE_RIGHT);
+
                 if (e.key.keysym.scancode == SDL_SCANCODE_SPACE) {
                     this->map->insertTile(this->currentTile);
                     this->currentTile = std::move(this->tileFactory.getRandomTileSharedPtr());
