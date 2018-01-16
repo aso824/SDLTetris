@@ -15,12 +15,12 @@ bool Tetris::Collisions::WallCollisionChecker::isCurrentPositionCorrect(std::sha
     }
 
     // Right wall
-    if (rect.x > 9 - rect.w) {
+    if (rect.x > 10 - rect.w) {
         return false;
     }
 
     // Floor
-    if (rect.y > 19 - rect.h) {
+    if (rect.y > 20 - rect.h) {
         return false;
     }
 

@@ -9,6 +9,8 @@
 #include "tilefactory.h"
 #include "map.h"
 #include "maprenderer.h"
+#include "movementmanager.h"
+#include "Collisions/wallcollisionchecker.h"
 
 namespace Tetris {
     class Game
@@ -27,6 +29,7 @@ namespace Tetris {
             std::shared_ptr<MapRenderer> mapRen;
             std::shared_ptr<Tile> currentTile;
             TileFactory tileFactory;
+            std::unique_ptr<MovementManager> movementMgr;
 
             SDL_Rect getMainGameRect();
     };

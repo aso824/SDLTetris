@@ -6,6 +6,11 @@
 Tetris::Game::Game()
 {
     this->map = std::make_shared<Map>();
+
+    // Prepare movement manager
+    this->movementMgr = std::unique_ptr<MovementManager>(new MovementManager(this->map));
+    this->movementMgr->addCollisionChecker(std::make_shared<Collisions::WallCollisionChecker>());
+
     this->currentTile = std::move(this->tileFactory.getRandomTileSharedPtr());
     this->currentTile->setPosition({3, 3});
 }
@@ -48,9 +53,18 @@ void Tetris::Game::start()
                 run = false;
             }
 
-            if (e.type == SDL_KEYDOWN && e.key.keysym.scancode == SDL_SCANCODE_DOWN) {
-                this->currentTile->makeMove(MOVE_DOWN);
+            if (e.type == SDL_KEYDOWN) {
+                if (e.key.keysym.scancode == SDL_SCANCODE_DOWN)
+                    this->movementMgr->makeMove(this->currentTile, MOVE_DOWN);
+
+                if (e.key.keysym.scancode == SDL_SCANCODE_LEFT)
+                    this->movementMgr->makeMove(this->currentTile, MOVE_LEFT);
+
+                if (e.key.keysym.scancode == SDL_SCANCODE_RIGHT)
+                    this->movementMgr->makeMove(this->currentTile, MOVE_RIGHT);
             }
+
+
         }
 
         this->mapRen->render();

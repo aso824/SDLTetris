@@ -11,6 +11,8 @@ namespace Tetris {
         class WallCollisionChecker : public AbstractCollisionChecker
         {
             public:
+                WallCollisionChecker() { }
+                ~WallCollisionChecker() { }
                 bool isCurrentPositionCorrect(std::shared_ptr<Tile> tile);
         };
     }

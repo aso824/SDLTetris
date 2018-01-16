@@ -10,8 +10,11 @@ namespace Tetris {
         class AbstractCollisionChecker
         {
             public:
-                AbstractCollisionChecker() = delete;
+                virtual ~AbstractCollisionChecker() { }
                 virtual bool isCurrentPositionCorrect(std::shared_ptr<Tile> tile) = 0;
+
+            protected:
+                AbstractCollisionChecker() { }
         };
     }
 }
