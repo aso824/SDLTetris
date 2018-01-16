@@ -34,6 +34,8 @@ namespace Tetris {
 
             void drawBlock(TileColors color, SDL_Point p);
             void drawBlock(TileColors color, int x, int y);
+
+            void clearTileArea();
     };
 }
 

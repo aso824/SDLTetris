@@ -28,6 +28,8 @@ namespace Gfx {
             inline unsigned int getScreenHeight() { return this->screenHeight; }
 
             void clearScreen();
+            void clearRect(SDL_Rect rect, SDL_Color color = {0, 0, 0, 0});
+
             void refresh();
 
             void drawRect(SDL_Rect rect, SDL_Color* color = nullptr, bool filled = false);

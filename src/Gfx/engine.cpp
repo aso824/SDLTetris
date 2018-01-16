@@ -35,6 +35,16 @@ void Gfx::Engine::clearScreen()
 }
 
 /**
+ * @brief Clear area by drawing a recangle in desired color, or black by default
+ * @param rect Rect to be cleared
+ * @param color Color for clearing, default black
+ */
+void Gfx::Engine::clearRect(SDL_Rect rect, SDL_Color color)
+{
+    this->drawRect(rect, &color, true);
+}
+
+/**
  * @brief Calls SDL_RenderPresent
  */
 void Gfx::Engine::refresh()

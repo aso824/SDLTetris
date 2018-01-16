@@ -49,8 +49,9 @@ void Tetris::Game::start()
             }
         }
 
-        this->mapRen->drawTile(this->currentTile);
         this->mapRen->render();
+        this->mapRen->drawTile(this->currentTile);
+
         this->engine->refresh();
     }
 }

@@ -23,10 +23,12 @@ Tetris::MapRenderer::~MapRenderer()
 }
 
 /**
- * @brief Render static map (from data vector)
+ * @brief Render static map (from data vector). Must be called before drawTile()
  */
 void Tetris::MapRenderer::render()
 {
+    this->clearTileArea();
+
     for (int i = 0; i < 20; i++) {
         for (int j = 0; j < 10; j++) {
             this->drawBlock(this->map->getData()->at(i).at(j), {j, i});
@@ -117,4 +119,12 @@ void Tetris::MapRenderer::drawBlock(TileColors color, int x, int y)
     std::string assetName = "block_" + names[(int)color - 1];
 
     this->engine->renderTexture(assetName, {x, y});
+}
+
+/**
+ * @brief Clear area used for tiles
+ */
+void Tetris::MapRenderer::clearTileArea()
+{
+    this->engine->clearRect(this->area);
 }
