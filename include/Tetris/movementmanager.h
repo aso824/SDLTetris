@@ -7,6 +7,7 @@
 #include "enums.h"
 #include "map.h"
 #include "Collisions/abstractcollisionchecker.h"
+#include "include/globals.h"
 
 namespace Tetris {
     class MovementManager

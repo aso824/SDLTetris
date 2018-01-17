@@ -7,7 +7,7 @@
 Tetris::MovementManager::MovementManager(std::shared_ptr<Tetris::Map> map)
 {
     this->map = map;
-    this->currentSpeed = 1000;
+    this->currentSpeed = Globals::blockSpeedStart;
 }
 
 /**
