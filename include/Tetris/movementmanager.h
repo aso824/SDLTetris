@@ -22,7 +22,7 @@ namespace Tetris {
             bool isRotationPossible(std::shared_ptr<Tile> tile, RotationDirection direction);
             bool makeRotation(std::shared_ptr<Tile> tile, RotationDirection direction);
 
-            void tick(std::shared_ptr<Tile> tile);
+            bool tick(std::shared_ptr<Tile> tile);
 
         protected:
             int currentSpeed;

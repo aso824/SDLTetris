@@ -13,7 +13,6 @@ Tetris::Game::Game()
     this->movementMgr->addCollisionChecker(std::make_shared<Collisions::MapCollisionChecker>(this->map));
 
     this->currentTile = std::move(this->tileFactory.getRandomTileSharedPtr());
-    this->currentTile->setPosition({7, 3});
 }
 
 /**
@@ -69,12 +68,6 @@ void Tetris::Game::start()
 
                 if (e.key.keysym.scancode == SDL_SCANCODE_X)
                     this->movementMgr->makeRotation(this->currentTile, ROTATE_RIGHT);
-
-                if (e.key.keysym.scancode == SDL_SCANCODE_SPACE) {
-                    this->map->insertTile(this->currentTile);
-                    this->currentTile = std::move(this->tileFactory.getRandomTileSharedPtr());
-                    this->currentTile->setPosition({3, 3});
-                }
             }
 
 
@@ -86,7 +79,9 @@ void Tetris::Game::start()
         // @TODO: repair bug with tile over frame and remove this fix
         this->ui->drawTilesFrame();
 
-        this->movementMgr->tick(this->currentTile);
+        if (!this->movementMgr->tick(this->currentTile)) {
+            this->createNextTile();
+        }
 
         this->engine->refresh();
     }
@@ -122,4 +117,13 @@ SDL_Rect Tetris::Game::getMainGameRect()
     }
 
     return result;
+}
+
+/**
+ * @brief Push current tile into map, create next tile from factory
+ */
+void Tetris::Game::createNextTile()
+{
+    this->map->insertTile(this->currentTile);
+    this->currentTile = std::move(this->tileFactory.getRandomTileSharedPtr());
 }

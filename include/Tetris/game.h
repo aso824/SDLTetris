@@ -33,6 +33,7 @@ namespace Tetris {
             std::unique_ptr<MovementManager> movementMgr;
 
             SDL_Rect getMainGameRect();
+            void createNextTile();
     };
 }
 

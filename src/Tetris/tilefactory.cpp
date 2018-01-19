@@ -6,9 +6,17 @@
  */
 Tetris::Tile* Tetris::TileFactory::getRandomTile()
 {
-    TileType type = this->getRandomType();
-    Tile* tile = new Tile(type, {0, 0});
-    this->setTilePosition(tile);
+    Tile* tile = nullptr;
+    TileColors color = TILE_COLOR_BLANK;
+
+    do {
+        TileType type = this->getRandomType();
+        tile = new Tile(type, {0, 0});
+        this->setTilePosition(tile);
+
+        if (tile != nullptr)
+            color = tile->getColor();
+    } while (color == TILE_COLOR_BLANK);
 
     return tile;
 }

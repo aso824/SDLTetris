@@ -105,17 +105,19 @@ bool Tetris::MovementManager::makeRotation(std::shared_ptr<Tetris::Tile> tile, T
  * @brief Call this function on each loop iteration to make tile autofalling
  * @param tile Tile to be moved
  */
-void Tetris::MovementManager::tick(std::shared_ptr<Tetris::Tile> tile)
+bool Tetris::MovementManager::tick(std::shared_ptr<Tetris::Tile> tile)
 {
     if (lastTick == 0) {
         lastTick = SDL_GetTicks();
-        return;
+        return true;
     }
 
     if (SDL_GetTicks() - lastTick > this->currentSpeed) {
-        this->makeMove(tile, MOVE_DOWN);
         this->lastTick = SDL_GetTicks();
+        return this->makeMove(tile, MOVE_DOWN);
     }
+
+    return true;
 }
 
 /**

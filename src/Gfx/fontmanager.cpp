@@ -57,7 +57,9 @@ Gfx::Font Gfx::FontManager::getFont(std::string fontName, int size)
 void Gfx::FontManager::clearCache()
 {
     for (int i = this->fonts.size() - 1; i >= 0; i--) {
-        TTF_CloseFont(this->fonts[i].fontObj);
+        if (this->fonts[i].fontObj != nullptr)
+            TTF_CloseFont(this->fonts[i].fontObj);
+
         this->fonts.erase(this->fonts.begin() + i);
     }
 }
