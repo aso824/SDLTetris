@@ -83,6 +83,8 @@ void Tetris::Game::start()
             this->createNextTile();
         }
 
+        this->map->deleteFullLines();
+
         this->engine->refresh();
     }
 }
