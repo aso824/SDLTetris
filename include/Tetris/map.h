@@ -22,6 +22,8 @@ namespace Tetris {
 
             void insertTile(std::shared_ptr<Tile> tile);
 
+            std::vector<int> findFullLines();
+
         protected:
             MapData* data;
     };

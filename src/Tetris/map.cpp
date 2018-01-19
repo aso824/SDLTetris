@@ -87,4 +87,30 @@ void Tetris::Map::insertTile(std::shared_ptr<Tetris::Tile> tile)
     }
 }
 
+/**
+ * @brief Find full lines and return them
+ * @return Vector with full lines indexes, counting like normal Y
+ */
+std::vector<int> Tetris::Map::findFullLines()
+{
+    std::vector<int> result;
+
+    for (size_t y = 0; y < 19; y++) {
+        bool currentLineEmpty = true;
+
+        for (auto cell: this->data->at(y)) {
+            if (cell != TILE_COLOR_BLANK) {
+                currentLineEmpty = false;
+                break;
+            }
+        }
+
+        if (currentLineEmpty) {
+            result.push_back(y);
+        }
+    }
+
+    return result;
+}
+
 
