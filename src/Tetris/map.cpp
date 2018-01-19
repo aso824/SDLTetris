@@ -113,4 +113,25 @@ std::vector<int> Tetris::Map::findFullLines()
     return result;
 }
 
+/**
+ * @brief Delete given line from map
+ * @param y Line index <0,19>, from up to down
+ */
+void Tetris::Map::deleteLine(int y)
+{
+    this->data->erase(this->data->begin() + y);
+    this->data->insert(this->data->begin(), std::vector<TileColors>(10));
+}
+
+/**
+ * @brief Delete multiple lines
+ * @param lines Vector of lines index
+ */
+void Tetris::Map::deleteLines(std::vector<int> lines)
+{
+    for (auto &it: lines) {
+        this->deleteLine(it);
+    }
+}
+
 
