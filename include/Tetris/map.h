@@ -22,12 +22,14 @@ namespace Tetris {
 
             void insertTile(std::shared_ptr<Tile> tile);
 
-            std::vector<int> findFullLines();
-            void deleteLine(int y);
-            void deleteLines(std::vector<int> lines);
+            int deleteFullLines();
 
         protected:
             MapData* data;
+
+            std::vector<int> findFullLines();
+            void deleteLine(int y);
+            void deleteLines(std::vector<int> lines);
     };
 }
 

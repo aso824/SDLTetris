@@ -95,17 +95,17 @@ std::vector<int> Tetris::Map::findFullLines()
 {
     std::vector<int> result;
 
-    for (size_t y = 0; y < 19; y++) {
-        bool currentLineEmpty = true;
+    for (size_t y = 0; y < 20; y++) {
+        bool currentLineFull = true;
 
         for (auto cell: this->data->at(y)) {
-            if (cell != TILE_COLOR_BLANK) {
-                currentLineEmpty = false;
+            if (cell == TILE_COLOR_BLANK) {
+                currentLineFull = false;
                 break;
             }
         }
 
-        if (currentLineEmpty) {
+        if (currentLineFull) {
             result.push_back(y);
         }
     }
@@ -132,6 +132,18 @@ void Tetris::Map::deleteLines(std::vector<int> lines)
     for (auto &it: lines) {
         this->deleteLine(it);
     }
+}
+
+/**
+ * @brief Find and delete all full lines
+ * @return Count of deleted lines
+ */
+int Tetris::Map::deleteFullLines()
+{
+    std::vector<int> lines = this->findFullLines();
+    this->deleteLines(lines);
+
+    return lines.size();
 }
 
 
