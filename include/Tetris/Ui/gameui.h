@@ -4,6 +4,8 @@
 #include <memory>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+#include "nexttilerenderer.h"
+#include "include/Tetris/tile.h"
 #include "include/Gfx/engine.h"
 #include "include/Gfx/textwriter.h"
 
@@ -18,10 +20,12 @@ namespace Tetris {
                 SDL_Rect getTilesArea();
                 void draw();
                 void drawTilesFrame();
+                void drawNextTile(std::shared_ptr<Tetris::Tile> tile);
 
             protected:
                 std::shared_ptr<Gfx::Engine> engine;
                 std::shared_ptr<Gfx::TextWriter> writer;
+                std::unique_ptr<NextTileRenderer> nextTileRenderer;
 
                 SDL_Rect area;
 

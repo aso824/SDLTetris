@@ -81,6 +81,7 @@ void Tetris::Game::start()
 
         if (!this->movementMgr->tick(this->currentTile)) {
             this->createNextTile();
+            this->ui->drawNextTile(this->currentTile);
         }
 
         this->map->deleteFullLines();

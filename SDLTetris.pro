@@ -25,7 +25,8 @@ SOURCES += main.cpp \
     src/Tetris/Collisions/abstractcollisionchecker.cpp \
     src/Tetris/Collisions/wallcollisionchecker.cpp \
     src/Tetris/movementmanager.cpp \
-    src/Tetris/Collisions/mapcollisionchecker.cpp
+    src/Tetris/Collisions/mapcollisionchecker.cpp \
+    src/Tetris/Ui/nexttilerenderer.cpp
 
 CONFIG += c++11
 
@@ -60,4 +61,5 @@ HEADERS += \
     include/Tetris/Collisions/abstractcollisionchecker.h \
     include/Tetris/Collisions/wallcollisionchecker.h \
     include/Tetris/movementmanager.h \
-    include/Tetris/Collisions/mapcollisionchecker.h
+    include/Tetris/Collisions/mapcollisionchecker.h \
+    include/Tetris/Ui/nexttilerenderer.h

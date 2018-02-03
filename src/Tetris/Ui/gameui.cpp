@@ -7,6 +7,7 @@
 Tetris::Ui::GameUi::GameUi(std::shared_ptr<Gfx::Engine> engine, SDL_Rect area) : engine(engine), area(area)
 {
     this->writer = std::unique_ptr<Gfx::TextWriter>(new Gfx::TextWriter(engine));
+    this->nextTileRenderer = std::unique_ptr<NextTileRenderer>(new NextTileRenderer(engine, this->calcNextTileArea()));
 }
 
 /**
@@ -49,6 +50,15 @@ void Tetris::Ui::GameUi::draw()
 void Tetris::Ui::GameUi::drawTilesFrame()
 {
     this->drawShadedBoxFrame(this->calcTilesArea());
+}
+
+/**
+ * @brief Tetris::Ui::GameUi::drawNextTile
+ * @param tile
+ */
+void Tetris::Ui::GameUi::drawNextTile(std::shared_ptr<Tetris::Tile> tile)
+{
+   this->nextTileRenderer->render(tile);
 }
 
 /**
