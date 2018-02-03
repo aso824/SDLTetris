@@ -37,6 +37,7 @@ namespace Gfx {
             void renderTexture(SDL_Texture *tex, SDL_Rect pos);
             void renderTexture(SDL_Texture *tex, SDL_Point pos);
             void renderTexture(std::string assetName, SDL_Point pos);
+            void renderTexture(std::string assetName, SDL_Rect dst);
 
         protected:
             SDL_Window* win = nullptr;

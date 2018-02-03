@@ -124,7 +124,14 @@ void Tetris::MapRenderer::drawBlock(TileColors color, int x, int y)
 
     std::string assetName = "block_" + names[(int)color - 1];
 
-    this->engine->renderTexture(assetName, {x, y});
+    SDL_Rect dst = {
+        x,
+        y,
+        static_cast<int>(this->tileSize),
+        static_cast<int>(this->tileSize)
+    };
+
+    this->engine->renderTexture(assetName, dst);
 }
 
 /**

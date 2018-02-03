@@ -115,7 +115,7 @@ void Gfx::Engine::renderTexture(SDL_Texture* tex, SDL_Point pos)
 /**
  * @brief Render asset on desired place
  * @param assetName Asset loaded by AssetsManager internal instance
- * @param pos Wherwe texture will be rendered
+ * @param pos Where texture will be rendered
  */
 void Gfx::Engine::renderTexture(std::string assetName, SDL_Point pos)
 {
@@ -141,6 +141,29 @@ void Gfx::Engine::renderTexture(std::string assetName, SDL_Point pos)
         dst.h = src->h;
     } else {
         SDL_QueryTexture(asset.first, NULL, NULL, &dst.w, &dst.h);
+    }
+
+    SDL_RenderCopy(this->ren, asset.first, src, &dst);
+}
+
+/**
+ * @brief Render asset on desired place
+ * @param assetName Asset loaded by AssetsManager internal instance
+ * @param dst SDL_Rect with position and dimensions
+ */
+void Gfx::Engine::renderTexture(std::string assetName, SDL_Rect dst)
+{
+    std::pair<SDL_Texture*, SDL_Rect*> asset = this->assets->getAsset(assetName);
+
+    if (asset.first == nullptr) {
+        Logger::Logger::warn("Can't render texture, unknown asset: " + assetName);
+        return;
+    }
+
+    SDL_Rect* src = nullptr;
+
+    if (asset.second != nullptr) {
+        src = asset.second;
     }
 
     SDL_RenderCopy(this->ren, asset.first, src, &dst);
