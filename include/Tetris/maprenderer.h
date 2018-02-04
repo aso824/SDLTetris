@@ -31,11 +31,6 @@ namespace Tetris {
             std::unique_ptr<BlockDrawer> blockDrawer;
 
             SDL_Rect area;
-            float tileSize;
-
-            float calculateTileSize();
-
-            void drawBlock(TileColors color, SDL_Point p);
 
             void clearTileArea();
     };

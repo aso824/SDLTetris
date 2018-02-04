@@ -23,7 +23,6 @@ namespace Tetris {
                 unsigned short blockSize;
                 const int gridSize = 5;
 
-                void setBlockSize();
                 void clearArea();
         };
     }

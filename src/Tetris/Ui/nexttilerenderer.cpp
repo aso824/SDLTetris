@@ -7,10 +7,9 @@
 Tetris::Ui::NextTileRenderer::NextTileRenderer(std::shared_ptr<Gfx::Engine> engine, SDL_Rect area)
     : engine(engine), area(area)
 {
-    this->setBlockSize();
-
     this->drawer = std::unique_ptr<BlockDrawer>(new BlockDrawer(engine));
-    this->drawer->setBlockSize(this->blockSize);
+    this->drawer->setArea(area, this->gridSize, this->gridSize);
+    this->blockSize = this->drawer->getBlockSize();
 }
 
 /**
@@ -39,19 +38,6 @@ void Tetris::Ui::NextTileRenderer::render(std::shared_ptr<Tetris::Tile> tile)
             }
         }
     }
-}
-
-/**
- * @brief Calculate and set the block size, depends of area to render
- * @throws std::logic_error When w/h != 1 (invalid ratio, must be 1:1)
- */
-void Tetris::Ui::NextTileRenderer::setBlockSize()
-{
-    if (this->area.w != this->area.h) {
-        throw std::logic_error("Next tile area resolution ratio is invalid");
-    }
-
-    this->blockSize = this->area.w / this->gridSize;
 }
 
 /**
