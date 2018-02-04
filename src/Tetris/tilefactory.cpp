@@ -40,7 +40,15 @@ Tetris::TileType Tetris::TileFactory::getRandomType()
     std::uniform_int_distribution<int> dist(0, 6 + 1);
 
     std::mt19937 mt(this->rd());
-    return TileType(dist(mt));
+    TileType type;
+
+    do {
+        type = TileType(dist(mt));
+    } while (type == this->lastType);
+
+    this->lastType = type;
+
+    return type;
 }
 
 /**
