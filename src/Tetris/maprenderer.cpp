@@ -12,6 +12,9 @@ Tetris::MapRenderer::MapRenderer(std::shared_ptr<Gfx::Engine> engine, std::share
     this->map = map;
     this->area = area;
     this->tileSize = this->calculateTileSize();
+
+    this->blockDrawer = std::unique_ptr<BlockDrawer>(new BlockDrawer(this->engine));
+    this->blockDrawer->setBlockSize(this->tileSize);
 }
 
 /**
@@ -101,37 +104,7 @@ void Tetris::MapRenderer::drawBlock(TileColors color, SDL_Point p)
     int x = this->area.x + this->tileSize * p.x;
     int y = this->area.y + this->tileSize * p.y;
 
-    this->drawBlock(color, x, y);
-}
-
-/**
- * @brief Draw single block on screen
- * @param color Color of block to be drawn
- * @param p Block position, raw (on screen)
- */
-void Tetris::MapRenderer::drawBlock(TileColors color, int x, int y)
-{
-    // Color names (prefixes) in asset
-    const std::string names[7] = {
-        "yellow",
-        "cyan",
-        "green",
-        "orange",
-        "red",
-        "purple",
-        "blue"
-    };
-
-    std::string assetName = "block_" + names[(int)color - 1];
-
-    SDL_Rect dst = {
-        x,
-        y,
-        static_cast<int>(this->tileSize),
-        static_cast<int>(this->tileSize)
-    };
-
-    this->engine->renderTexture(assetName, dst);
+    this->blockDrawer->drawBlock(color, {x, y});
 }
 
 /**

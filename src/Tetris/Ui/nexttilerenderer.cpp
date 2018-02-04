@@ -8,6 +8,9 @@ Tetris::Ui::NextTileRenderer::NextTileRenderer(std::shared_ptr<Gfx::Engine> engi
     : engine(engine), area(area)
 {
     this->setBlockSize();
+
+    this->drawer = std::unique_ptr<BlockDrawer>(new BlockDrawer(engine));
+    this->drawer->setBlockSize(this->blockSize);
 }
 
 /**
@@ -32,7 +35,7 @@ void Tetris::Ui::NextTileRenderer::render(std::shared_ptr<Tetris::Tile> tile)
                     gy + y * this->blockSize
                 };
 
-                this->drawBlock(tile->getColor(), blockPosition);
+                this->drawer->drawBlock(tile->getColor(), blockPosition);
             }
         }
     }
@@ -49,36 +52,6 @@ void Tetris::Ui::NextTileRenderer::setBlockSize()
     }
 
     this->blockSize = this->area.w / this->gridSize;
-}
-
-/**
- * @brief Draw block in next tile area at desired position
- * @param color Block color to be drawn
- * @param p Block position, in GRAPHICS COORDINATES
- */
-void Tetris::Ui::NextTileRenderer::drawBlock(Tetris::TileColors color, SDL_Point p)
-{
-    // Color names (prefixes) in asset
-    const std::string names[7] = {
-        "yellow",
-        "cyan",
-        "green",
-        "orange",
-        "red",
-        "purple",
-        "blue"
-    };
-
-    std::string assetName = "block_" + names[(int)color - 1];
-
-    SDL_Rect dst = {
-        p.x,
-        p.y,
-        static_cast<int>(this->blockSize),
-        static_cast<int>(this->blockSize)
-    };
-
-    this->engine->renderTexture(assetName, dst);
 }
 
 /**

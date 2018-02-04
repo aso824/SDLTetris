@@ -4,6 +4,7 @@
 #include <memory>
 #include <SDL2/SDL.h>
 #include "include/Tetris/tile.h"
+#include "include/Tetris/blockdrawer.h"
 #include "include/Gfx/engine.h"
 
 namespace Tetris {
@@ -16,12 +17,13 @@ namespace Tetris {
 
             protected:
                 std::shared_ptr<Gfx::Engine> engine;
+                std::unique_ptr<Tetris::BlockDrawer> drawer;
+
                 SDL_Rect area;
                 unsigned short blockSize;
                 const int gridSize = 5;
 
                 void setBlockSize();
-                void drawBlock(TileColors color, SDL_Point p);
                 void clearArea();
         };
     }
