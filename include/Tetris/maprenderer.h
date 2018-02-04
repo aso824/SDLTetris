@@ -8,6 +8,7 @@
 #include "map.h"
 #include "enums.h"
 #include "tile.h"
+#include "blockdrawer.h"
 #include "include/Gfx/engine.h"
 
 namespace Tetris {
@@ -27,13 +28,9 @@ namespace Tetris {
         protected:
             std::shared_ptr<Gfx::Engine> engine;
             std::shared_ptr<Map> map;
+            std::unique_ptr<BlockDrawer> blockDrawer;
+
             SDL_Rect area;
-            float tileSize;
-
-            float calculateTileSize();
-
-            void drawBlock(TileColors color, SDL_Point p);
-            void drawBlock(TileColors color, int x, int y);
 
             void clearTileArea();
     };

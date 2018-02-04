@@ -13,6 +13,7 @@ Tetris::Game::Game()
     this->movementMgr->addCollisionChecker(std::make_shared<Collisions::MapCollisionChecker>(this->map));
 
     this->currentTile = std::move(this->tileFactory.getRandomTileSharedPtr());
+    this->nextTile = std::move(this->tileFactory.getRandomTileSharedPtr());
 }
 
 /**
@@ -43,6 +44,7 @@ void Tetris::Game::start()
 
     this->engine->clearScreen();
     this->ui->draw();
+    this->ui->drawNextTile(this->nextTile);
 
     SDL_Event e;
     bool run = true;
@@ -81,7 +83,6 @@ void Tetris::Game::start()
 
         if (!this->movementMgr->tick(this->currentTile)) {
             this->createNextTile();
-            this->ui->drawNextTile(this->currentTile);
         }
 
         this->map->deleteFullLines();
@@ -128,5 +129,8 @@ SDL_Rect Tetris::Game::getMainGameRect()
 void Tetris::Game::createNextTile()
 {
     this->map->insertTile(this->currentTile);
-    this->currentTile = std::move(this->tileFactory.getRandomTileSharedPtr());
+    this->currentTile = this->nextTile;
+    this->nextTile = std::move(this->tileFactory.getRandomTileSharedPtr());
+
+    this->ui->drawNextTile(this->nextTile);
 }

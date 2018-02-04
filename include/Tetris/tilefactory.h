@@ -15,10 +15,11 @@ namespace Tetris {
             std::shared_ptr<Tile> getRandomTileSharedPtr();
 
         protected:
+            std::random_device rd;
+            TileType lastType;
+
             TileType getRandomType();
             void setTilePosition(Tile* tile);
-
-            std::random_device rd;
     };
 }
 

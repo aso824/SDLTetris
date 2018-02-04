@@ -28,7 +28,7 @@ namespace Tetris {
             std::unique_ptr<Ui::GameUi> ui;
             std::shared_ptr<Map> map;
             std::shared_ptr<MapRenderer> mapRen;
-            std::shared_ptr<Tile> currentTile;
+            std::shared_ptr<Tile> currentTile, nextTile;
             TileFactory tileFactory;
             std::unique_ptr<MovementManager> movementMgr;
 
