@@ -12,13 +12,28 @@ Tetris::Ui::NextTileRenderer::NextTileRenderer(std::shared_ptr<Gfx::Engine> engi
 
 /**
  * @brief Draw new tile in next tile area
- * @param tile
+ * @param tile Tile to be drawn
  */
 void Tetris::Ui::NextTileRenderer::render(std::shared_ptr<Tetris::Tile> tile)
 {
-    for (int i = 0; i < 5; i++) {
-        for (int j = 0; j < 5; j++) {
-            this->drawBlock(TileColors((i * j) % 7 + 1), i, j);
+    this->clearArea();
+
+    int gfxWidth = tile->getWidth() * this->blockSize;
+    int gx = this->area.w / 2 - gfxWidth / 2;
+
+    int gfxHeight = tile->getHeight() * this->blockSize;
+    int gy = this->area.h / 2 - gfxHeight / 2;
+
+    for (int y = 0; y < tile->getHeight(); y++) {
+        for (int x = 0; x < tile->getWidth(); x++) {
+            if (tile->getShape().at(y).at(x) == true) {
+                SDL_Point blockPosition = {
+                    this->area.x + gx + x * this->blockSize,
+                    this->area.y + gy + y * this->blockSize
+                };
+
+                this->drawBlock(tile->getColor(), blockPosition);
+            }
         }
     }
 }
@@ -34,26 +49,6 @@ void Tetris::Ui::NextTileRenderer::setBlockSize()
     }
 
     this->blockSize = this->area.w / this->gridSize;
-}
-
-/**
- * @brief Draw block in next tile area at desired position
- * @param color Block color to be drawn
- * @param x X-coordinate in GRID COORDINATES
- * @param y Y-coordinate in GRID COORDINATES
- */
-void Tetris::Ui::NextTileRenderer::drawBlock(Tetris::TileColors color, int x, int y)
-{
-    if (x < 0 || x >= this->gridSize || y < 0 || y > this->gridSize) {
-        return;
-    }
-
-    SDL_Point pos = {
-        this->area.x + x * this->blockSize,
-        this->area.y + y * this->blockSize
-    };
-
-    this->drawBlock(color, pos);
 }
 
 /**
@@ -84,4 +79,12 @@ void Tetris::Ui::NextTileRenderer::drawBlock(Tetris::TileColors color, SDL_Point
     };
 
     this->engine->renderTexture(assetName, dst);
+}
+
+/**
+ * @brief Clear next tile area
+ */
+void Tetris::Ui::NextTileRenderer::clearArea()
+{
+    this->engine->clearRect(this->area);
 }
