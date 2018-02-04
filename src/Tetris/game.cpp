@@ -43,6 +43,7 @@ void Tetris::Game::start()
 
     this->engine->clearScreen();
     this->ui->draw();
+    this->ui->drawNextTile(this->currentTile);
 
     SDL_Event e;
     bool run = true;

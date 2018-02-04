@@ -17,6 +17,13 @@ namespace Tetris {
             protected:
                 std::shared_ptr<Gfx::Engine> engine;
                 SDL_Rect area;
+                unsigned short blockSize;
+                const int gridSize = 5;
+
+                void setBlockSize();
+
+                void drawBlock(TileColors color, int x, int y);
+                void drawBlock(TileColors color, SDL_Point p);
         };
     }
 }
