@@ -19,17 +19,17 @@ void Tetris::Ui::NextTileRenderer::render(std::shared_ptr<Tetris::Tile> tile)
     this->clearArea();
 
     int gfxWidth = tile->getWidth() * this->blockSize;
-    int gx = this->area.w / 2 - gfxWidth / 2;
+    int gx = this->area.w / 2 - gfxWidth / 2 + this->area.x;
 
     int gfxHeight = tile->getHeight() * this->blockSize;
-    int gy = this->area.h / 2 - gfxHeight / 2;
+    int gy = this->area.h / 2 - gfxHeight / 2 + this->area.y;
 
     for (int y = 0; y < tile->getHeight(); y++) {
         for (int x = 0; x < tile->getWidth(); x++) {
             if (tile->getShape().at(y).at(x) == true) {
                 SDL_Point blockPosition = {
-                    this->area.x + gx + x * this->blockSize,
-                    this->area.y + gy + y * this->blockSize
+                    gx + x * this->blockSize,
+                    gy + y * this->blockSize
                 };
 
                 this->drawBlock(tile->getColor(), blockPosition);
