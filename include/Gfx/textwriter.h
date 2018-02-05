@@ -15,8 +15,8 @@ namespace Gfx {
     {
         public:
             TextWriter(std::shared_ptr<Engine> const& engine);
-            void writeText(std::string s, Font f, SDL_Point pos, SDL_Color color, int width = 0);
-            void writeText(std::string s, std::string fontName, int size, SDL_Point pos, SDL_Color color, int width = 0);
+            void writeText(std::string s, Font f, SDL_Point pos, SDL_Color color, int width = 0, bool centered = false);
+            void writeText(std::string s, std::string fontName, int size, SDL_Point pos, SDL_Color color, int width = 0, bool centered = false);
 
         protected:
             std::shared_ptr<Engine> engine;

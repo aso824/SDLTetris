@@ -1,4 +1,5 @@
 font Roboto roboto.ttf
+font Telegrama telegrama.ttf
 
 texture block_yellow tiles.png 0 0 39 39
 texture block_cyan tiles.png 40 0 39 39

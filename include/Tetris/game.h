@@ -10,6 +10,7 @@
 #include "map.h"
 #include "maprenderer.h"
 #include "movementmanager.h"
+#include "player.h"
 #include "Collisions/wallcollisionchecker.h"
 #include "Collisions/mapcollisionchecker.h"
 
@@ -31,6 +32,7 @@ namespace Tetris {
             std::shared_ptr<Tile> currentTile, nextTile;
             TileFactory tileFactory;
             std::unique_ptr<MovementManager> movementMgr;
+            std::shared_ptr<Player> player;
 
             SDL_Rect getMainGameRect();
             void createNextTile();

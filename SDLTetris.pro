@@ -27,7 +27,8 @@ SOURCES += main.cpp \
     src/Tetris/movementmanager.cpp \
     src/Tetris/Collisions/mapcollisionchecker.cpp \
     src/Tetris/Ui/nexttilerenderer.cpp \
-    src/Tetris/blockdrawer.cpp
+    src/Tetris/blockdrawer.cpp \
+    src/Tetris/player.cpp
 
 CONFIG += c++11
 
@@ -64,4 +65,5 @@ HEADERS += \
     include/Tetris/movementmanager.h \
     include/Tetris/Collisions/mapcollisionchecker.h \
     include/Tetris/Ui/nexttilerenderer.h \
-    include/Tetris/blockdrawer.h
+    include/Tetris/blockdrawer.h \
+    include/Tetris/player.h
