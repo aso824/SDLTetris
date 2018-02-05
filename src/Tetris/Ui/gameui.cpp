@@ -205,7 +205,7 @@ SDL_Point Tetris::Ui::GameUi::writeLevel(SDL_Point pointsLabelPosition)
     pos.y *= 1.15;
 
     std::string level = std::to_string(this->player->getLevel());
-    this->writer->writeText(level, "Telegrama", 60, pos, {59, 131, 247, 255}, this->nextTileArea.w);
+    this->writer->writeText(level, "Telegrama", 48, pos, {59, 131, 247, 255}, this->nextTileArea.w);
 
     return pos;
 }

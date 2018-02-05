@@ -17,8 +17,9 @@ Gfx::TextWriter::TextWriter(const std::shared_ptr<Engine>& engine)
  * @param pos Text position, point is on upper-left corner
  * @param color Text color
  * @param width Autoscale to given width, give 0 to disable
+ * @param centered Give width as desired area.w, pos.x for area.x and text will be centered
  */
-void Gfx::TextWriter::writeText(std::string s, Gfx::Font f, SDL_Point pos, SDL_Color color, int width)
+void Gfx::TextWriter::writeText(std::string s, Gfx::Font f, SDL_Point pos, SDL_Color color, int width, bool centered)
 {
     SDL_Surface *surf = TTF_RenderUTF8_Blended(f.fontObj, s.c_str(), color);
     SDL_Texture *tex = SDL_CreateTextureFromSurface(this->engine->getRenderer(), surf);
@@ -34,6 +35,10 @@ void Gfx::TextWriter::writeText(std::string s, Gfx::Font f, SDL_Point pos, SDL_C
         r.w = width;
     }
 
+    if (centered) {
+        r.x = pos.x + width / 2 - w / 2;
+    }
+
     this->engine->renderTexture(tex, r);
     SDL_DestroyTexture(tex);
 }
@@ -46,9 +51,10 @@ void Gfx::TextWriter::writeText(std::string s, Gfx::Font f, SDL_Point pos, SDL_C
  * @param pos Text position, point is on upper-left corner
  * @param color Text color
  * @param width Autoscale to given width, give 0 to disable
+ * @param centered Give width as desired area.w, pos.x for area.x and text will be centered
  */
-void Gfx::TextWriter::writeText(std::string s, std::string fontName, int size, SDL_Point pos, SDL_Color color, int width)
+void Gfx::TextWriter::writeText(std::string s, std::string fontName, int size, SDL_Point pos, SDL_Color color, int width, bool centered)
 {
     Font f = this->fontmgr->getFont(fontName, size);
-    this->writeText(s, f, pos, color, width);
+    this->writeText(s, f, pos, color, width, centered);
 }
