@@ -14,6 +14,8 @@ Tetris::Game::Game()
 
     this->currentTile = std::move(this->tileFactory.getRandomTileSharedPtr());
     this->nextTile = std::move(this->tileFactory.getRandomTileSharedPtr());
+
+    this->player = std::make_shared<Player>();
 }
 
 /**
@@ -33,6 +35,8 @@ void Tetris::Game::setGraphicsEngine(std::shared_ptr<Gfx::Engine> engine)
     this->engine = engine;
     this->ui = std::unique_ptr<Ui::GameUi>(new Ui::GameUi(this->engine, this->getMainGameRect()));
     this->mapRen = std::make_shared<MapRenderer>(this->engine, this->map, this->ui->getTilesArea());
+
+    this->ui->setPlayer(this->player);
 }
 
 /**

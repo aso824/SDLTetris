@@ -39,8 +39,8 @@ void Tetris::Ui::GameUi::draw()
     // Sidebar labels and values
     SDL_Point p;
     p = this->writeNextTileLabel();
-    p = this->writePointsLabel();
-    p = this->writeLevelLabel(p);
+    p = this->writePoints();
+    p = this->writeLevel(p);
 }
 
 /**
@@ -58,6 +58,15 @@ void Tetris::Ui::GameUi::drawTilesFrame()
 void Tetris::Ui::GameUi::drawNextTile(std::shared_ptr<Tetris::Tile> tile)
 {
     this->nextTileRenderer->render(tile);
+}
+
+/**
+ * @brief Set Player object pointer
+ * @param player Shared pointer to Player object
+ */
+void Tetris::Ui::GameUi::setPlayer(std::shared_ptr<Tetris::Player> player)
+{
+    this->player = player;
 }
 
 /**
@@ -160,10 +169,10 @@ SDL_Point Tetris::Ui::GameUi::writeNextTileLabel()
 }
 
 /**
- * @brief Draw a label for points in sidebar
- * @return Position of label
+ * @brief Draw a label for points and points sum in sidebar
+ * @return Position of poins text
  */
-SDL_Point Tetris::Ui::GameUi::writePointsLabel()
+SDL_Point Tetris::Ui::GameUi::writePoints()
 {
     SDL_Point pos = {
         this->nextTileArea.x,
@@ -172,21 +181,47 @@ SDL_Point Tetris::Ui::GameUi::writePointsLabel()
 
     this->writer->writeText("Punkty:", "Roboto", 48, pos, {255, 255, 255, 255}, this->nextTileArea.w * 0.8);
 
+    pos.y *= 1.25;
+
+    std::string points = this->formatPoints(this->player->getPoints());
+    this->writer->writeText(points, "Telegrama", 48, pos, {16, 255, 16, 255}, this->nextTileArea.w);
+
     return pos;
 }
 
 /**
- * @brief Draw a label for level in sidebar
- * @return Position of label
+ * @brief Draw a label for level and current level in sidebar
+ * @return Position of level text
  */
-SDL_Point Tetris::Ui::GameUi::writeLevelLabel(SDL_Point pointsLabelPosition)
+SDL_Point Tetris::Ui::GameUi::writeLevel(SDL_Point pointsLabelPosition)
 {
     SDL_Point pos = {
         pointsLabelPosition.x,
-        (int)(pointsLabelPosition.y * 1.6)
+        (int)(pointsLabelPosition.y * 1.2)
     };
 
     this->writer->writeText("Poziom:", "Roboto", 48, pos, {255, 255, 255, 255}, this->nextTileArea.w * 0.8);
 
+    pos.y *= 1.15;
+
+    std::string level = std::to_string(this->player->getLevel());
+    this->writer->writeText(level, "Telegrama", 60, pos, {59, 131, 247, 255}, this->nextTileArea.w);
+
     return pos;
+}
+
+/**
+ * @brief Get points formatted in 6 character format, with leading zeroes and maximum on 999999
+ * @param points Sum of points
+ * @return Formatted string
+ */
+std::string Tetris::Ui::GameUi::formatPoints(unsigned int points)
+{
+    std::string str = std::to_string(points);
+
+    while (str.length() < 6) {
+        str = '0' + str;
+    }
+
+    return str;
 }
