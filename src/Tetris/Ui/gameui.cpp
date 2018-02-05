@@ -32,16 +32,15 @@ SDL_Rect Tetris::Ui::GameUi::getTilesArea()
  */
 void Tetris::Ui::GameUi::draw()
 {
+    // Frames
     this->drawTilesFrame();
+    this->drawShadedBoxFrame(this->nextTileArea);
 
-    SDL_Rect nextTileArea = this->calcNextTileArea();
-    SDL_Point nextTileLabel = {
-        nextTileArea.x,
-        (int)(nextTileArea.y - nextTileArea.w * 0.4)
-    };
-
-    this->writer->writeText("Następny:", "Roboto", 48, nextTileLabel, {255, 255, 255, 255}, nextTileArea.w);
-    this->drawShadedBoxFrame(nextTileArea);
+    // Labels
+    SDL_Point p;
+    p = this->writeNextTileLabel();
+    p = this->writePointsLabel();
+    p = this->writeLevelLabel(p);
 }
 
 /**
@@ -123,12 +122,16 @@ SDL_Rect Tetris::Ui::GameUi::calcNextTileArea()
 {
     SDL_Rect sidebarArea = this->calcSidebarArea();
 
-    return {
+    SDL_Rect area = {
         sidebarArea.x,
         (int)(sidebarArea.y + sidebarArea.h * 0.1),
         sidebarArea.w,
         sidebarArea.w
     };
+
+    this->nextTileArea = area;
+
+    return area;
 }
 
 /**
@@ -138,4 +141,52 @@ void Tetris::Ui::GameUi::clearTilesArea()
 {
     SDL_Color black = {0, 0, 0, 0};
     this->engine->drawRect(this->calcTilesArea(), &black, true);
+}
+
+/**
+ * @brief Draw a label for next tile in sidebar
+ * @return Position of label
+ */
+SDL_Point Tetris::Ui::GameUi::writeNextTileLabel()
+{
+    SDL_Point pos = {
+        this->nextTileArea.x,
+        (int)(this->nextTileArea.y - this->nextTileArea.w * 0.4)
+    };
+
+    this->writer->writeText("Następny:", "Roboto", 48, pos, {255, 255, 255, 255}, this->nextTileArea.w);
+
+    return pos;
+}
+
+/**
+ * @brief Draw a label for points in sidebar
+ * @return Position of label
+ */
+SDL_Point Tetris::Ui::GameUi::writePointsLabel()
+{
+    SDL_Point pos = {
+        this->nextTileArea.x,
+        (int)(this->nextTileArea.y + this->nextTileArea.w * 1.1)
+    };
+
+    this->writer->writeText("Punkty:", "Roboto", 48, pos, {255, 255, 255, 255}, this->nextTileArea.w * 0.8);
+
+    return pos;
+}
+
+/**
+ * @brief Draw a label for level in sidebar
+ * @return Position of label
+ */
+SDL_Point Tetris::Ui::GameUi::writeLevelLabel(SDL_Point pointsLabelPosition)
+{
+    SDL_Point pos = {
+        pointsLabelPosition.x,
+        (int)(pointsLabelPosition.y * 1.6)
+    };
+
+    this->writer->writeText("Poziom:", "Roboto", 48, pos, {255, 255, 255, 255}, this->nextTileArea.w * 0.8);
+
+    return pos;
 }

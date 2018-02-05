@@ -28,6 +28,7 @@ namespace Tetris {
                 std::unique_ptr<NextTileRenderer> nextTileRenderer;
 
                 SDL_Rect area;
+                SDL_Rect nextTileArea;
 
                 const int padding = 25;
                 const int shading = 64;
@@ -39,6 +40,10 @@ namespace Tetris {
                 SDL_Rect calcNextTileArea();
 
                 void clearTilesArea();
+
+                SDL_Point writeNextTileLabel();
+                SDL_Point writePointsLabel();
+                SDL_Point writeLevelLabel(SDL_Point writePointsLabelPosition);
         };
     }
 }
