@@ -36,7 +36,7 @@ void Tetris::Ui::GameUi::draw()
     this->drawTilesFrame();
     this->drawShadedBoxFrame(this->nextTileArea);
 
-    // Labels
+    // Sidebar labels and values
     SDL_Point p;
     p = this->writeNextTileLabel();
     p = this->writePointsLabel();
@@ -57,7 +57,7 @@ void Tetris::Ui::GameUi::drawTilesFrame()
  */
 void Tetris::Ui::GameUi::drawNextTile(std::shared_ptr<Tetris::Tile> tile)
 {
-   this->nextTileRenderer->render(tile);
+    this->nextTileRenderer->render(tile);
 }
 
 /**
