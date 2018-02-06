@@ -5,6 +5,7 @@
  */
 Tetris::Game::Game()
 {
+    // Prepare map
     this->map = std::make_shared<Map>();
 
     // Prepare movement manager
@@ -12,22 +13,16 @@ Tetris::Game::Game()
     this->movementMgr->addCollisionChecker(std::make_shared<Collisions::WallCollisionChecker>());
     this->movementMgr->addCollisionChecker(std::make_shared<Collisions::MapCollisionChecker>(this->map));
 
+    // Prepare tiles
     this->currentTile = std::move(this->tileFactory.getRandomTileSharedPtr());
     this->nextTile = std::move(this->tileFactory.getRandomTileSharedPtr());
 
+    // Prepare player
     this->player = std::make_shared<Player>();
 }
 
 /**
- * @brief Dtor
- */
-Tetris::Game::~Game()
-{
-
-}
-
-/**
- * @brief Setter for Gfx::Engine
+ * @brief Setter for Gfx::Engine, initializes Ui::GameUi and MapRenderer
  * @param engine Shared pointer for Gfx::Engine instance
  */
 void Tetris::Game::setGraphicsEngine(std::shared_ptr<Gfx::Engine> engine)
@@ -87,9 +82,18 @@ void Tetris::Game::start()
 
         if (!this->movementMgr->tick(this->currentTile)) {
             this->createNextTile();
+
+            // Increase player points and/or level
+            this->player->blockPlaced();
         }
 
-        this->map->deleteFullLines();
+        int deletedLines = this->map->deleteFullLines();
+
+        if (deletedLines > 0) {
+            // Increase player points and/or level
+            this->player->linesDeleted(deletedLines);
+        }
+
 
         this->engine->refresh();
     }

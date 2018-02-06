@@ -54,3 +54,20 @@ void Tetris::Player::addLevels(unsigned int levels)
     this->level += levels;
 }
 
+/**
+ * @brief Event to be fired when block is placed on a map
+ */
+void Tetris::Player::blockPlaced()
+{
+
+}
+
+/**
+ * @brief Event to be fired when one or more lines was deleted
+ * @param count Count of deleted lines
+ */
+void Tetris::Player::linesDeleted(unsigned int count)
+{
+
+}
+
